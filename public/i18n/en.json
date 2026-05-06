@@ -1,0 +1,107 @@
+{
+  "nav": {
+    "aboutUs": "About Us",
+    "breeds": "Breeds",
+    "puppies": "Puppies",
+    "archive": "Archive",
+    "contact": "Contact",
+    "breedLinks": {
+      "about": "About Breed",
+      "standards": "Standards",
+      "males": "Males",
+      "females": "Females"
+    }
+  },
+  "hero": {
+    "eyebrow": "FCI Registered Kennel",
+    "title": "Welcome to",
+    "subtitle": "Passionate breeders of Bernese Mountain Dogs, Maltese and Bolonka Zwetna. Health-tested, family-raised puppies.",
+    "cta": {
+      "breeds": "Our Breeds",
+      "puppies": "Available Puppies"
+    },
+    "breedsStrip": "Our Breeds"
+  },
+  "breeds": {
+    "title": "Our Breeds",
+    "eyebrow": "Meet the Dogs",
+    "origin": "Origin",
+    "fciGroup": "FCI Group",
+    "actions": {
+      "about": "About",
+      "standards": "Standards",
+      "males": "Males",
+      "females": "Females"
+    }
+  },
+  "about": {
+    "eyebrow": "Our Story",
+    "title": "About Us",
+    "paragraph1": "We are a family-run kennel with over a decade of experience breeding healthy, well-socialized dogs. Our priority is temperament, health testing and the well-being of every dog in our care.",
+    "paragraph2": "All our breeding dogs pass health screenings relevant to their breed. Puppies are raised in our home, socialised from birth and leave only when ready.",
+    "stats": {
+      "yearsLabel": "Years of Experience",
+      "litttersLabel": "Litters Bred",
+      "puppiesLabel": "Happy Puppies",
+      "countriesLabel": "Countries Reached"
+    }
+  },
+  "puppies": {
+    "eyebrow": "New Arrivals",
+    "title": "Available Puppies",
+    "status": {
+      "available": "Available",
+      "reserved": "Reserved",
+      "sold": "Sold"
+    },
+    "litter": "Litter",
+    "born": "Born",
+    "available": "Available from",
+    "cta": "Enquire",
+    "viewAll": "View All Puppies"
+  },
+  "contact": {
+    "eyebrow": "Get In Touch",
+    "title": "Contact Us",
+    "details": {
+      "location": "Location",
+      "email": "Email",
+      "phone": "Phone"
+    },
+    "form": {
+      "name": "Your Name",
+      "email": "Your Email",
+      "interest": "I'm interested in",
+      "interestOptions": {
+        "general": "General Enquiry",
+        "bernese": "Bernese Mountain Dog",
+        "maltese": "Maltese",
+        "bolonka": "Bolonka Zwetna"
+      },
+      "message": "Your Message",
+      "submit": "Send Message"
+    }
+  },
+  "footer": {
+    "rights": "All rights reserved.",
+    "links": {
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Use"
+    }
+  },
+  "breed": {
+    "about": "About the Breed",
+    "standards": "Breed Standards",
+    "males": "Our Males",
+    "females": "Our Females",
+    "origin": "Origin",
+    "fciGroup": "FCI Group",
+    "noDogsYet": "No dogs listed yet."
+  },
+  "archive": {
+    "eyebrow": "Past Litters",
+    "title": "Archive",
+    "allBreeds": "All Breeds",
+    "noRecords": "No archive records yet."
+  }
+}

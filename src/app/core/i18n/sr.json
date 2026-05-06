@@ -1,0 +1,107 @@
+{
+  "nav": {
+    "aboutUs": "O nama",
+    "breeds": "Rase",
+    "puppies": "Štenci",
+    "archive": "Arhiva",
+    "contact": "Kontakt",
+    "breedLinks": {
+      "about": "O rasi",
+      "standards": "Standardi",
+      "males": "Mužjaci",
+      "females": "Ženke"
+    }
+  },
+  "hero": {
+    "eyebrow": "Registrovani FCI Kennel",
+    "title": "Dobrodošli u",
+    "subtitle": "Strastveni uzgajivači Bernenskih planinskih pasa, Maltezera i Bolonke Zvetne. Zdravstveno testirani štenci, odgajani u porodičnoj sredini.",
+    "cta": {
+      "breeds": "Naše rase",
+      "puppies": "Dostupni štenci"
+    },
+    "breedsStrip": "Naše rase"
+  },
+  "breeds": {
+    "title": "Naše Rase",
+    "eyebrow": "Upoznajte pse",
+    "origin": "Poreklo",
+    "fciGroup": "FCI Grupa",
+    "actions": {
+      "about": "O rasi",
+      "standards": "Standardi",
+      "males": "Mužjaci",
+      "females": "Ženke"
+    }
+  },
+  "about": {
+    "eyebrow": "Naša priča",
+    "title": "O nama",
+    "paragraph1": "Porodični kennel sa više od decenije iskustva u uzgoju zdravih, dobro socijalizovanih pasa. Prioritet nam je temperament, zdravstveni pregledi i dobrobit svakog psa.",
+    "paragraph2": "Svi naši priplodni psi prolaze zdravstvene preglede specifične za rasu. Štenci rastu u našem domu, socijalizovani su od rođenja i odlaze samo kada su spremni.",
+    "stats": {
+      "yearsLabel": "Godina iskustva",
+      "litttersLabel": "Legla",
+      "puppiesLabel": "Srećnih štenenaca",
+      "countriesLabel": "Zemalja"
+    }
+  },
+  "puppies": {
+    "eyebrow": "Novi dolasci",
+    "title": "Dostupni Štenci",
+    "status": {
+      "available": "Dostupan",
+      "reserved": "Rezervisan",
+      "sold": "Prodat"
+    },
+    "litter": "Leglo",
+    "born": "Рођен",
+    "available": "Dostupan od",
+    "cta": "Upit",
+    "viewAll": "Svi štenci"
+  },
+  "contact": {
+    "eyebrow": "Stupite u kontakt",
+    "title": "Kontaktirajte nas",
+    "details": {
+      "location": "Lokacija",
+      "email": "Mejl",
+      "phone": "Telefon"
+    },
+    "form": {
+      "name": "Vaše ime",
+      "email": "Vaš mejl",
+      "interest": "Zanima me",
+      "interestOptions": {
+        "general": "Opšti upit",
+        "bernese": "Bernski planinski pas",
+        "maltese": "Malteze",
+        "bolonka": "Bolonka Zvetna"
+      },
+      "message": "Vaša poruka",
+      "submit": "Pošalji poruku"
+    }
+  },
+  "footer": {
+    "rights": "Sva prava zadržana.",
+    "links": {
+      "privacy": "Politika privatnosti",
+      "terms": "Uslovi korišćenja"
+    }
+  },
+  "breed": {
+    "about": "O rasi",
+    "standards": "Standardi rase",
+    "males": "Naši mužjaci",
+    "females": "Naše ženke",
+    "origin": "Poreklo",
+    "fciGroup": "FCI Grupa",
+    "noDogsYet": "Još uvek nema pasa."
+  },
+  "archive": {
+    "eyebrow": "Prethodna legla",
+    "title": "Arhiva",
+    "allBreeds": "Sve rase",
+    "noRecords": "Još uvek nema arhivskih zapisa."
+  }
+}

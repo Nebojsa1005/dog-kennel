@@ -1,0 +1,14 @@
+<div class="breed-about" *ngIf="breed()">
+  <h2>{{ 'breed.about' | translate }}: {{ breed()!.name }}</h2>
+  <dl class="breed-about__facts">
+    <div>
+      <dt>{{ 'breed.origin' | translate }}</dt>
+      <dd>{{ breed()!.origin }}</dd>
+    </div>
+    <div>
+      <dt>{{ 'breed.fciGroup' | translate }}</dt>
+      <dd>{{ breed()!.fciGroup }}</dd>
+    </div>
+  </dl>
+  <p class="breed-about__desc">{{ breed()!.description }}</p>
+</div>

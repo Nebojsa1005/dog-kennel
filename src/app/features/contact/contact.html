@@ -1,0 +1,53 @@
+<div class="contact-page">
+  <div class="contact-page__header">
+    <div class="container">
+      <app-section-header eyebrowKey="contact.eyebrow" titleKey="contact.title"></app-section-header>
+    </div>
+  </div>
+
+  <div class="container contact-page__grid">
+    <div class="contact-details">
+      <ul class="contact-list">
+        <li>
+          <span class="contact-label">{{ 'contact.details.location' | translate }}</span>
+          <span>{{ config.location }}</span>
+        </li>
+        <li>
+          <span class="contact-label">{{ 'contact.details.email' | translate }}</span>
+          <a [href]="'mailto:' + config.email">{{ config.email }}</a>
+        </li>
+        <li>
+          <span class="contact-label">{{ 'contact.details.phone' | translate }}</span>
+          <a [href]="'tel:' + config.phone">{{ config.phone }}</a>
+        </li>
+      </ul>
+    </div>
+
+    <form class="contact-form" [formGroup]="form" (ngSubmit)="submit()">
+      <div class="form-field">
+        <label class="form-label">{{ 'contact.form.name' | translate }}</label>
+        <input class="form-input" type="text" formControlName="name">
+      </div>
+      <div class="form-field">
+        <label class="form-label">{{ 'contact.form.email' | translate }}</label>
+        <input class="form-input" type="email" formControlName="email">
+      </div>
+      <div class="form-field">
+        <label class="form-label">{{ 'contact.form.interest' | translate }}</label>
+        <select class="form-input" formControlName="interest">
+          <option value="general">{{ 'contact.form.interestOptions.general' | translate }}</option>
+          <option value="bernese">{{ 'contact.form.interestOptions.bernese' | translate }}</option>
+          <option value="maltese">{{ 'contact.form.interestOptions.maltese' | translate }}</option>
+          <option value="bolonka">{{ 'contact.form.interestOptions.bolonka' | translate }}</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label class="form-label">{{ 'contact.form.message' | translate }}</label>
+        <textarea class="form-input form-input--textarea" formControlName="message" rows="6"></textarea>
+      </div>
+      <button type="submit" class="btn" [disabled]="form.invalid">
+        {{ 'contact.form.submit' | translate }}
+      </button>
+    </form>
+  </div>
+</div>

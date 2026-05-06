@@ -1,0 +1,21 @@
+.section-header {
+  margin-bottom: 48px;
+
+  &--center {
+    text-align: center;
+  }
+
+  &__eyebrow {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin-bottom: 12px;
+  }
+
+  &__title {
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    color: var(--color-text);
+  }
+}

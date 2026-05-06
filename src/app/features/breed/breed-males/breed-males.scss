@@ -1,0 +1,11 @@
+.dog-list {
+  h2 {
+    font-size: 1.75rem;
+    margin-bottom: 24px;
+  }
+
+  &__empty {
+    color: var(--color-text-muted);
+    font-style: italic;
+  }
+}

@@ -1,0 +1,42 @@
+<div class="breed-page" *ngIf="breed(); else notFound">
+  <div class="breed-page__hero">
+    <div class="container breed-page__hero-inner">
+      <div class="breed-page__hero-text">
+        <p class="breed-page__eyebrow">{{ breed()!.origin }} · {{ breed()!.fciGroup }}</p>
+        <h1 class="breed-page__title">{{ breed()!.name }}</h1>
+        <p class="breed-page__desc">{{ breed()!.description }}</p>
+      </div>
+      <div class="breed-page__hero-img">
+        <app-dog-img [src]="breed()!.imagePath" [alt]="breed()!.name" aspectRatio="3/4"></app-dog-img>
+      </div>
+    </div>
+  </div>
+
+  <nav class="breed-page__tabs">
+    <div class="container breed-page__tabs-inner">
+      <a class="breed-page__tab" [routerLink]="['about']" routerLinkActive="breed-page__tab--active">
+        {{ 'breed.about' | translate }}
+      </a>
+      <a class="breed-page__tab" [routerLink]="['standards']" routerLinkActive="breed-page__tab--active">
+        {{ 'breed.standards' | translate }}
+      </a>
+      <a class="breed-page__tab" [routerLink]="['males']" routerLinkActive="breed-page__tab--active">
+        {{ 'breed.males' | translate }}
+      </a>
+      <a class="breed-page__tab" [routerLink]="['females']" routerLinkActive="breed-page__tab--active">
+        {{ 'breed.females' | translate }}
+      </a>
+    </div>
+  </nav>
+
+  <div class="container breed-page__content">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
+<ng-template #notFound>
+  <div class="container" style="padding: 80px 0; text-align: center;">
+    <p>Breed not found.</p>
+    <a routerLink="/" class="btn" style="margin-top: 16px; display: inline-block;">← Home</a>
+  </div>
+</ng-template>

@@ -1,0 +1,93 @@
+.puppies-page {
+  &__header {
+    background: var(--color-bg-surface);
+    padding: var(--section-padding) 0 0;
+    border-bottom: 1px solid #e0dbd4;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    padding-top: 48px;
+    padding-bottom: var(--section-padding);
+
+    @media (max-width: 900px) { grid-template-columns: repeat(2, 1fr); }
+    @media (max-width: 560px) { grid-template-columns: 1fr; }
+  }
+}
+
+.filter-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-bottom: 24px;
+}
+
+.filter-tab {
+  padding: 8px 18px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  border: 1.5px solid #e0dbd4;
+  color: var(--color-text-muted);
+  transition: all 150ms ease;
+
+  &:hover,
+  &--active {
+    background: #1a1a1a;
+    color: #fff;
+    border-color: #1a1a1a;
+  }
+}
+
+.puppy-card {
+  background: var(--color-bg);
+  border: 1.5px solid #e0dbd4;
+  transition: box-shadow 200ms ease;
+
+  &:hover { box-shadow: var(--shadow-hover); }
+
+  &__media { position: relative; }
+
+  &__badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+  }
+
+  &__body { padding: 20px; }
+
+  &__breed {
+    font-size: 1.125rem;
+    margin-bottom: 6px;
+  }
+
+  &__meta,
+  &__avail {
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+    margin-bottom: 4px;
+  }
+
+  &__avail { margin-bottom: 16px; }
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 20px;
+  background: #ffffff;
+  color: #1a1a1a;
+  border: 1.5px solid #1a1a1a;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background 200ms ease, color 200ms ease;
+
+  &:hover {
+    background: #1a1a1a;
+    color: #ffffff;
+  }
+}

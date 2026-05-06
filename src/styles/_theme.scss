@@ -1,0 +1,37 @@
+@use '@angular/material' as mat;
+
+$kennel-primary: mat.define-palette(mat.$brown-palette, 400, 200, 700);
+$kennel-accent: mat.define-palette(mat.$amber-palette, 300, 100, 600);
+$kennel-warn: mat.define-palette(mat.$red-palette);
+
+$kennel-theme: mat.define-light-theme((
+  color: (
+    primary: $kennel-primary,
+    accent: $kennel-accent,
+    warn: $kennel-warn,
+  ),
+  typography: mat.define-typography-config(
+    $font-family: 'Inter, system-ui, sans-serif',
+  ),
+  density: 0,
+));
+
+@include mat.all-component-themes($kennel-theme);
+
+// Override Material form fields to match our design tokens
+.mat-mdc-form-field {
+  .mdc-text-field--outlined {
+    .mdc-notched-outline__leading,
+    .mdc-notched-outline__notch,
+    .mdc-notched-outline__trailing {
+      border-color: #1a1a1a !important;
+      border-width: 1.5px !important;
+    }
+  }
+}
+
+// Override Material buttons
+.mat-mdc-button,
+.mat-mdc-outlined-button {
+  border: 1.5px solid #1a1a1a !important;
+}

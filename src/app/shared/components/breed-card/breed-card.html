@@ -1,0 +1,18 @@
+<article class="breed-card">
+  <div class="breed-card__media">
+    <app-dog-img [src]="breed.imagePath" [alt]="breed.name" aspectRatio="4/3"></app-dog-img>
+  </div>
+  <div class="breed-card__body">
+    <h3 class="breed-card__name">{{ breed.name }}</h3>
+    <p class="breed-card__meta">
+      <span>{{ 'breeds.origin' | translate }}: {{ breed.origin }}</span>
+    </p>
+    <p class="breed-card__desc">{{ breed.description }}</p>
+    <div class="breed-card__actions">
+      <a class="btn" [routerLink]="['/breeds', breed.id, 'about']">{{ 'breeds.actions.about' | translate }}</a>
+      <a class="btn" [routerLink]="['/breeds', breed.id, 'standards']">{{ 'breeds.actions.standards' | translate }}</a>
+      <a class="btn" [routerLink]="['/breeds', breed.id, 'males']">{{ 'breeds.actions.males' | translate }}</a>
+      <a class="btn" [routerLink]="['/breeds', breed.id, 'females']">{{ 'breeds.actions.females' | translate }}</a>
+    </div>
+  </div>
+</article>

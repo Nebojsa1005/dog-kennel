@@ -1,0 +1,149 @@
+<!-- ═══════════════════════════════════════
+  1. HERO
+═══════════════════════════════════════ -->
+<section class="hero">
+  <div class="container hero__inner">
+    <div class="hero__content">
+      <p class="hero__eyebrow">{{ 'hero.eyebrow' | translate }}</p>
+      <h1 class="hero__title">
+        {{ 'hero.title' | translate }}<br>
+        <span class="hero__title-accent">{{ config.name }}</span>
+      </h1>
+      <p class="hero__location">📍 {{ config.location }}</p>
+      <p class="hero__subtitle">{{ 'hero.subtitle' | translate }}</p>
+      <div class="hero__cta">
+        <a class="btn btn--primary" routerLink="/breeds/bernese-mountain-dog">{{ 'hero.cta.breeds' | translate }}</a>
+        <a class="btn" routerLink="/puppies">{{ 'hero.cta.puppies' | translate }}</a>
+      </div>
+    </div>
+    <div class="hero__visual">
+      <app-dog-img [src]="null" alt="Kennel hero" aspectRatio="3/4"></app-dog-img>
+    </div>
+  </div>
+
+  <!-- breeds strip -->
+  <div class="hero__strip">
+    <div class="container hero__strip-inner">
+      <span class="hero__strip-label">{{ 'hero.breedsStrip' | translate }}:</span>
+      <div class="hero__strip-breeds">
+        <a *ngFor="let b of breeds" [routerLink]="['/breeds', b.id]" class="hero__strip-breed">{{ b.name }}</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+  2. OUR BREEDS
+═══════════════════════════════════════ -->
+<section class="section section--surface" id="breeds">
+  <div class="container">
+    <app-section-header #fadeEl eyebrowKey="breeds.eyebrow" titleKey="breeds.title"></app-section-header>
+    <div class="breeds-grid">
+      <app-breed-card #fadeEl *ngFor="let b of breeds" [breed]="b" class="fade-target"></app-breed-card>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+  3. ABOUT US
+═══════════════════════════════════════ -->
+<section class="section" id="about">
+  <div class="container about__grid">
+    <div class="about__media" #fadeEl>
+      <app-dog-img [src]="null" alt="About us" aspectRatio="3/4"></app-dog-img>
+    </div>
+    <div class="about__text" #fadeEl>
+      <app-section-header eyebrowKey="about.eyebrow" titleKey="about.title"></app-section-header>
+      <p class="about__para">{{ 'about.paragraph1' | translate }}</p>
+      <p class="about__para">{{ 'about.paragraph2' | translate }}</p>
+      <div class="stats-grid">
+        <div class="stat" *ngFor="let s of stats">
+          <span class="stat__value">{{ s.value }}</span>
+          <span class="stat__label">{{ s.labelKey | translate }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+  4. PUPPIES
+═══════════════════════════════════════ -->
+<section class="section section--muted" id="puppies">
+  <div class="container">
+    <app-section-header eyebrowKey="puppies.eyebrow" titleKey="puppies.title"></app-section-header>
+    <div class="puppies-grid">
+      <article class="puppy-card" *ngFor="let p of puppies" #fadeEl>
+        <div class="puppy-card__media">
+          <app-dog-img [src]="null" [alt]="p.breed" aspectRatio="4/3"></app-dog-img>
+          <div class="puppy-card__badge">
+            <app-badge [variant]="p.status" [labelKey]="'puppies.status.' + p.status"></app-badge>
+          </div>
+        </div>
+        <div class="puppy-card__body">
+          <h3 class="puppy-card__breed">{{ p.breed }}</h3>
+          <p class="puppy-card__meta">{{ 'puppies.litter' | translate }} {{ p.litter }} · {{ 'puppies.born' | translate }} {{ p.born }}</p>
+          <p class="puppy-card__avail">{{ 'puppies.available' | translate }}: {{ p.availableFrom }}</p>
+          <a class="btn" routerLink="/contact">{{ 'puppies.cta' | translate }}</a>
+        </div>
+      </article>
+    </div>
+    <div class="section-more">
+      <a class="btn" routerLink="/puppies">{{ 'puppies.viewAll' | translate }}</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+  5. CONTACT
+═══════════════════════════════════════ -->
+<section class="section" id="contact">
+  <div class="container contact__grid">
+
+    <div class="contact__details" #fadeEl>
+      <app-section-header eyebrowKey="contact.eyebrow" titleKey="contact.title"></app-section-header>
+      <ul class="contact__list">
+        <li>
+          <span class="contact__label">{{ 'contact.details.location' | translate }}</span>
+          <span>{{ config.location }}</span>
+        </li>
+        <li>
+          <span class="contact__label">{{ 'contact.details.email' | translate }}</span>
+          <a [href]="'mailto:' + config.email">{{ config.email }}</a>
+        </li>
+        <li>
+          <span class="contact__label">{{ 'contact.details.phone' | translate }}</span>
+          <a [href]="'tel:' + config.phone">{{ config.phone }}</a>
+        </li>
+      </ul>
+    </div>
+
+    <form class="contact__form" [formGroup]="contactForm" (ngSubmit)="submitContact()" #fadeEl>
+      <div class="form-field">
+        <label class="form-label">{{ 'contact.form.name' | translate }}</label>
+        <input class="form-input" type="text" formControlName="name" [placeholder]="'contact.form.name' | translate">
+      </div>
+      <div class="form-field">
+        <label class="form-label">{{ 'contact.form.email' | translate }}</label>
+        <input class="form-input" type="email" formControlName="email" [placeholder]="'contact.form.email' | translate">
+      </div>
+      <div class="form-field">
+        <label class="form-label">{{ 'contact.form.interest' | translate }}</label>
+        <select class="form-input" formControlName="interest">
+          <option value="general">{{ 'contact.form.interestOptions.general' | translate }}</option>
+          <option value="bernese">{{ 'contact.form.interestOptions.bernese' | translate }}</option>
+          <option value="maltese">{{ 'contact.form.interestOptions.maltese' | translate }}</option>
+          <option value="bolonka">{{ 'contact.form.interestOptions.bolonka' | translate }}</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label class="form-label">{{ 'contact.form.message' | translate }}</label>
+        <textarea class="form-input form-input--textarea" formControlName="message" rows="5" [placeholder]="'contact.form.message' | translate"></textarea>
+      </div>
+      <button type="submit" class="btn btn--submit" [disabled]="contactForm.invalid">
+        {{ 'contact.form.submit' | translate }}
+      </button>
+    </form>
+
+  </div>
+</section>

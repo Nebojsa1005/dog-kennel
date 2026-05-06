@@ -1,0 +1,108 @@
+<header class="navbar" [class.navbar--scrolled]="scrolled()">
+  <div class="container navbar__inner">
+
+    <!-- Logo -->
+    <a class="navbar__logo" routerLink="/">
+      <svg class="navbar__logo-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="16" cy="16" r="16" fill="var(--color-accent)"/>
+        <ellipse cx="16" cy="20" rx="8" ry="6" fill="white" opacity="0.9"/>
+        <circle cx="16" cy="13" r="5" fill="white" opacity="0.9"/>
+        <ellipse cx="11" cy="10" rx="2.5" ry="4" fill="white" opacity="0.9" transform="rotate(-10 11 10)"/>
+        <ellipse cx="21" cy="10" rx="2.5" ry="4" fill="white" opacity="0.9" transform="rotate(10 21 10)"/>
+      </svg>
+      <div class="navbar__logo-text">
+        <span class="navbar__logo-name">{{ config.name }}</span>
+        <span class="navbar__logo-location">{{ config.location }}</span>
+      </div>
+    </a>
+
+    <!-- Desktop nav -->
+    <nav class="navbar__nav" aria-label="Main navigation">
+      <ul class="navbar__list">
+
+        <li class="navbar__item">
+          <a class="navbar__link" routerLink="/" routerLinkActive="navbar__link--active" [routerLinkActiveOptions]="{exact: true}">
+            {{ 'nav.aboutUs' | translate }}
+          </a>
+        </li>
+
+        <!-- Breeds two-level dropdown -->
+        <li class="navbar__item navbar__item--dropdown">
+          <button class="navbar__link navbar__link--btn">
+            {{ 'nav.breeds' | translate }} <span class="navbar__chevron">▾</span>
+          </button>
+          <ul class="navbar__dropdown">
+            <li *ngFor="let breed of breeds" class="navbar__dropdown-item navbar__dropdown-item--parent">
+              <a class="navbar__dropdown-link" [routerLink]="['/breeds', breed.id]">{{ breed.name }}</a>
+              <ul class="navbar__subdropdown">
+                <li><a [routerLink]="['/breeds', breed.id, 'about']">{{ 'nav.breedLinks.about' | translate }}</a></li>
+                <li><a [routerLink]="['/breeds', breed.id, 'standards']">{{ 'nav.breedLinks.standards' | translate }}</a></li>
+                <li><a [routerLink]="['/breeds', breed.id, 'males']">{{ 'nav.breedLinks.males' | translate }}</a></li>
+                <li><a [routerLink]="['/breeds', breed.id, 'females']">{{ 'nav.breedLinks.females' | translate }}</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+
+        <!-- Puppies dropdown -->
+        <li class="navbar__item navbar__item--dropdown">
+          <button class="navbar__link navbar__link--btn">
+            {{ 'nav.puppies' | translate }} <span class="navbar__chevron">▾</span>
+          </button>
+          <ul class="navbar__dropdown">
+            <li><a class="navbar__dropdown-link" routerLink="/puppies">{{ 'nav.puppies' | translate }}</a></li>
+            <li *ngFor="let breed of breeds">
+              <a class="navbar__dropdown-link" [routerLink]="['/puppies', breed.id]">{{ breed.name }}</a>
+            </li>
+          </ul>
+        </li>
+
+        <!-- Archive dropdown -->
+        <li class="navbar__item navbar__item--dropdown">
+          <button class="navbar__link navbar__link--btn">
+            {{ 'nav.archive' | translate }} <span class="navbar__chevron">▾</span>
+          </button>
+          <ul class="navbar__dropdown">
+            <li><a class="navbar__dropdown-link" routerLink="/archive">{{ 'nav.archive' | translate }}</a></li>
+            <li *ngFor="let breed of breeds">
+              <a class="navbar__dropdown-link" [routerLink]="['/archive', breed.id]">{{ breed.name }}</a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="navbar__item">
+          <a class="navbar__link" routerLink="/contact" routerLinkActive="navbar__link--active">
+            {{ 'nav.contact' | translate }}
+          </a>
+        </li>
+
+      </ul>
+    </nav>
+
+    <!-- Language toggle + hamburger -->
+    <div class="navbar__right">
+      <div class="navbar__lang">
+        <button class="navbar__lang-btn" [class.navbar__lang-btn--active]="activeLang() === 'en'" (click)="switchLang('en')">EN</button>
+        <span class="navbar__lang-sep">/</span>
+        <button class="navbar__lang-btn" [class.navbar__lang-btn--active]="activeLang() === 'sr'" (click)="switchLang('sr')">SR</button>
+      </div>
+      <button class="navbar__hamburger" (click)="toggleMobile()" [attr.aria-expanded]="mobileOpen()" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Mobile nav -->
+  <div class="navbar__mobile" [class.navbar__mobile--open]="mobileOpen()">
+    <ul>
+      <li><a routerLink="/" (click)="toggleMobile()">{{ 'nav.aboutUs' | translate }}</a></li>
+      <li *ngFor="let breed of breeds">
+        <a [routerLink]="['/breeds', breed.id]" (click)="toggleMobile()">{{ breed.name }}</a>
+      </li>
+      <li><a routerLink="/puppies" (click)="toggleMobile()">{{ 'nav.puppies' | translate }}</a></li>
+      <li><a routerLink="/archive" (click)="toggleMobile()">{{ 'nav.archive' | translate }}</a></li>
+      <li><a routerLink="/contact" (click)="toggleMobile()">{{ 'nav.contact' | translate }}</a></li>
+    </ul>
+  </div>
+</header>

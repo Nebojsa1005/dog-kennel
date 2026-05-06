@@ -1,0 +1,35 @@
+.breed-standards {
+  max-width: 720px;
+
+  h2 {
+    font-size: 1.75rem;
+    margin-bottom: 16px;
+  }
+}
+
+.placeholder-note {
+  font-size: 0.9375rem;
+  color: var(--color-text-muted);
+  margin-bottom: 32px;
+  font-style: italic;
+}
+
+.standards-placeholder {
+  border: 1px solid #e0dbd4;
+
+  &__row {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid #e0dbd4;
+    font-size: 0.9375rem;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+}
+
+.placeholder-text {
+  color: var(--color-bg-muted);
+}

@@ -1,0 +1,66 @@
+.breed-card {
+  background: var(--color-bg);
+  border: 1.5px solid #e0dbd4;
+  overflow: hidden;
+  transition: box-shadow var(--transition);
+
+  &:hover {
+    box-shadow: var(--shadow-hover);
+  }
+
+  &__media {
+    overflow: hidden;
+  }
+
+  &__body {
+    padding: 24px;
+  }
+
+  &__name {
+    font-size: 1.375rem;
+    margin-bottom: 6px;
+  }
+
+  &__meta {
+    font-size: 0.8125rem;
+    color: var(--color-accent-dark);
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  &__desc {
+    font-size: 0.9375rem;
+    color: var(--color-text-muted);
+    margin-bottom: 20px;
+    line-height: 1.7;
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 16px;
+  background: #ffffff;
+  color: #1a1a1a;
+  border: 1.5px solid #1a1a1a;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 200ms ease, color 200ms ease;
+
+  &:hover {
+    background: #1a1a1a;
+    color: #ffffff;
+  }
+}

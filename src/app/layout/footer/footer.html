@@ -1,0 +1,15 @@
+<footer class="footer">
+  <div class="container footer__inner">
+    <div class="footer__brand">
+      <p class="footer__name">{{ config.name }}</p>
+      <p class="footer__location">{{ config.location }}</p>
+    </div>
+    <div class="footer__links">
+      <a [href]="'mailto:' + config.email">{{ config.email }}</a>
+      <a [href]="'tel:' + config.phone">{{ config.phone }}</a>
+    </div>
+    <div class="footer__bottom">
+      <span>© {{ year }} {{ config.name }}. {{ 'footer.rights' | translate }}</span>
+    </div>
+  </div>
+</footer>

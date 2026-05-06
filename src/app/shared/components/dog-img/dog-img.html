@@ -1,0 +1,21 @@
+<div class="dog-img" [class]="'dog-img--' + aspectRatio.replace('/', '-')">
+  <img
+    *ngIf="!showPlaceholder"
+    [src]="src"
+    [alt]="alt"
+    (error)="onError()"
+    class="dog-img__photo"
+  />
+  <div *ngIf="showPlaceholder" class="dog-img__placeholder" [attr.aria-label]="alt">
+    <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" class="dog-img__icon">
+      <circle cx="40" cy="40" r="40" fill="#e8e4dd"/>
+      <ellipse cx="40" cy="52" rx="18" ry="14" fill="#c9bfac"/>
+      <circle cx="40" cy="30" r="12" fill="#c9bfac"/>
+      <ellipse cx="29" cy="26" rx="6" ry="9" fill="#c9bfac" transform="rotate(-15 29 26)"/>
+      <ellipse cx="51" cy="26" rx="6" ry="9" fill="#c9bfac" transform="rotate(15 51 26)"/>
+      <circle cx="36" cy="31" r="2" fill="#6b5a47"/>
+      <circle cx="44" cy="31" r="2" fill="#6b5a47"/>
+      <ellipse cx="40" cy="35" rx="3" ry="2" fill="#a08070"/>
+    </svg>
+  </div>
+</div>

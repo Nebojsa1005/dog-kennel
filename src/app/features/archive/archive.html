@@ -1,0 +1,41 @@
+<div class="archive-page">
+  <div class="archive-page__header">
+    <div class="container">
+      <app-section-header eyebrowKey="archive.eyebrow" titleKey="archive.title"></app-section-header>
+      <div class="filter-tabs">
+        <a class="filter-tab" routerLink="/archive" [class.filter-tab--active]="!activeBreed()">
+          {{ 'archive.allBreeds' | translate }}
+        </a>
+        <a class="filter-tab" *ngFor="let b of breeds"
+          [routerLink]="['/archive', b.id]"
+          [class.filter-tab--active]="activeBreed() === b.id">
+          {{ b.name }}
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container archive-page__content">
+    <p *ngIf="filtered().length === 0" class="archive-page__empty">
+      {{ 'archive.noRecords' | translate }}
+    </p>
+    <table class="archive-table" *ngIf="filtered().length > 0">
+      <thead>
+        <tr>
+          <th>Breed</th>
+          <th>Litter</th>
+          <th>Year</th>
+          <th>Puppies</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let r of filtered()">
+          <td>{{ r.breedName }}</td>
+          <td>{{ r.litter }}</td>
+          <td>{{ r.year }}</td>
+          <td>{{ r.puppyCount }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

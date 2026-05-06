@@ -1,0 +1,34 @@
+<div class="puppies-page">
+  <div class="puppies-page__header">
+    <div class="container">
+      <app-section-header eyebrowKey="puppies.eyebrow" titleKey="puppies.title"></app-section-header>
+      <div class="filter-tabs">
+        <a class="filter-tab" routerLink="/puppies" [class.filter-tab--active]="!activeBreed()">
+          All
+        </a>
+        <a class="filter-tab" *ngFor="let b of breeds"
+          [routerLink]="['/puppies', b.id]"
+          [class.filter-tab--active]="activeBreed() === b.id">
+          {{ b.name }}
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container puppies-page__grid">
+    <article class="puppy-card" *ngFor="let p of filtered()">
+      <div class="puppy-card__media">
+        <app-dog-img [src]="null" [alt]="p.breedName" aspectRatio="4/3"></app-dog-img>
+        <div class="puppy-card__badge">
+          <app-badge [variant]="p.status" [labelKey]="'puppies.status.' + p.status"></app-badge>
+        </div>
+      </div>
+      <div class="puppy-card__body">
+        <h3 class="puppy-card__breed">{{ p.breedName }}</h3>
+        <p class="puppy-card__meta">{{ 'puppies.litter' | translate }} {{ p.litter }} · {{ 'puppies.born' | translate }} {{ p.born }}</p>
+        <p class="puppy-card__avail">{{ 'puppies.available' | translate }}: {{ p.availableFrom }}</p>
+        <a class="btn" routerLink="/contact">{{ 'puppies.cta' | translate }}</a>
+      </div>
+    </article>
+  </div>
+</div>
