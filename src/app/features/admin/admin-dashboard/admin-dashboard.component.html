@@ -1,0 +1,35 @@
+<div class="dashboard">
+  <h1 class="dashboard__title">Dashboard</h1>
+
+  @if (stats$ | async; as stats) {
+    <div class="stats-grid">
+      <mat-card class="stat-card">
+        <mat-card-content>
+          <div class="stat-card__value">{{ stats.totalDogs }}</div>
+          <div class="stat-card__label">Total Dogs</div>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="stat-card">
+        <mat-card-content>
+          <div class="stat-card__value">{{ stats.totalPuppies }}</div>
+          <div class="stat-card__label">Total Puppies</div>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="stat-card stat-card--highlight">
+        <mat-card-content>
+          <div class="stat-card__value">{{ stats.availablePuppies }}</div>
+          <div class="stat-card__label">Available Puppies</div>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="stat-card">
+        <mat-card-content>
+          <div class="stat-card__value">{{ stats.totalLitters }}</div>
+          <div class="stat-card__label">Total Litters</div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  }
+</div>

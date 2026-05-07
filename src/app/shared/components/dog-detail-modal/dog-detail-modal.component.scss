@@ -1,0 +1,147 @@
+.dog-modal {
+  position: relative;
+  width: 480px;
+  max-width: 100%;
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+
+  &__close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 10;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 50%;
+    font-size: 14px;
+    cursor: pointer;
+    color: #1a1a1a;
+    backdrop-filter: blur(4px);
+
+    &:hover {
+      background: #fff;
+    }
+  }
+
+  &__photo {
+    width: 100%;
+
+    app-dog-img {
+      display: block;
+      width: 100%;
+    }
+  }
+
+  &__content {
+    padding: 20px 24px 16px;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  &__name {
+    font-size: 1.375rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0;
+  }
+
+  &__fields {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 20px;
+    row-gap: 8px;
+  }
+
+  &__nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 24px 20px;
+    border-top: 1px solid #ebebeb;
+  }
+}
+
+.field {
+  display: contents;
+
+  &__label {
+    font-size: 12px;
+    color: #888;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+    align-self: center;
+  }
+
+  &__value {
+    font-size: 14px;
+    color: #1a1a1a;
+    font-weight: 500;
+    align-self: center;
+  }
+}
+
+.status-chip {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+  white-space: nowrap;
+  flex-shrink: 0;
+
+  &--available {
+    background: #d4edda;
+    color: #155724;
+  }
+
+  &--reserved {
+    background: #fff3cd;
+    color: #856404;
+  }
+
+  &--sold {
+    background: #f8d7da;
+    color: #721c24;
+  }
+}
+
+.nav-btn {
+  background: none;
+  border: 1.5px solid #ebebeb;
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  color: #1a1a1a;
+  transition: background 0.15s ease, border-color 0.15s ease;
+
+  &:hover:not(:disabled) {
+    background: #f5f5f5;
+    border-color: #ccc;
+  }
+
+  &:disabled {
+    opacity: 0.35;
+    cursor: default;
+  }
+}
+
+.nav-counter {
+  font-size: 13px;
+  color: #888;
+  font-weight: 500;
+}

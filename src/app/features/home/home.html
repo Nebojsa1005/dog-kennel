@@ -73,17 +73,17 @@
   <div class="container">
     <app-section-header eyebrowKey="puppies.eyebrow" titleKey="puppies.title"></app-section-header>
     <div class="puppies-grid">
-      <article class="puppy-card" *ngFor="let p of puppies" #fadeEl>
+      <article class="puppy-card" *ngFor="let p of puppies()" #fadeEl>
         <div class="puppy-card__media">
-          <app-dog-img [src]="null" [alt]="p.breed" aspectRatio="4/3"></app-dog-img>
+          <app-dog-img [src]="p.photoBase64 || null" [alt]="p.name" aspectRatio="4/3"></app-dog-img>
           <div class="puppy-card__badge">
             <app-badge [variant]="p.status" [labelKey]="'puppies.status.' + p.status"></app-badge>
           </div>
         </div>
         <div class="puppy-card__body">
-          <h3 class="puppy-card__breed">{{ p.breed }}</h3>
-          <p class="puppy-card__meta">{{ 'puppies.litter' | translate }} {{ p.litter }} · {{ 'puppies.born' | translate }} {{ p.born }}</p>
-          <p class="puppy-card__avail">{{ 'puppies.available' | translate }}: {{ p.availableFrom }}</p>
+          <h3 class="puppy-card__breed">{{ p.name }}</h3>
+          <p class="puppy-card__meta">{{ p.breedId }} · {{ 'puppies.born' | translate }} {{ p.dateOfBirth }}</p>
+          <p class="puppy-card__avail">{{ p.color }}</p>
           <a class="btn" routerLink="/contact">{{ 'puppies.cta' | translate }}</a>
         </div>
       </article>

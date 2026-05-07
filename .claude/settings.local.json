@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\lazar\\\\Desktop\\\\projects\\\\dog-kennel\" -Recurse -Directory)",
+      "Bash(Select-Object -ExpandProperty FullName)",
+      "Bash(Sort-Object)",
+      "Bash(npm install *)",
+      "Bash(npx ng *)",
+      "Bash(del \"C:\\\\Users\\\\lazar\\\\Desktop\\\\projects\\\\dog-kennel\\\\src\\\\app\\\\core\\\\services\\\\storage.service.ts\")",
+      "Bash(del \"C:\\\\Users\\\\lazar\\\\Desktop\\\\projects\\\\dog-kennel\\\\firebase\\\\storage.rules\")",
+      "Bash(npm run *)",
+      "Bash(npx tsc *)"
+    ]
+  }
+}

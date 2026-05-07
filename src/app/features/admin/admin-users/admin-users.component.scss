@@ -1,0 +1,27 @@
+h1 { margin-bottom: 1.5rem; }
+.full-width { width: 100%; margin-bottom: 2rem; }
+
+.add-admin-section {
+  margin-top: 2.5rem;
+  padding: 1.5rem;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 8px;
+}
+
+.add-admin-note {
+  color: #666;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.add-admin-form {
+  display: flex;
+  flex-direction: column;
+  max-width: 420px;
+  gap: 0.25rem;
+}
+
+.error-msg {
+  color: #c62828;
+  font-size: 0.875rem;
+}

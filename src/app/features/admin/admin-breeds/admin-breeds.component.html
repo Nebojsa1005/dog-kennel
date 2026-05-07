@@ -1,0 +1,56 @@
+<div class="admin-page">
+  <h1>Breeds</h1>
+
+  @for (b of breedConfigs; track b.id) {
+    <div class="breed-card">
+      <div class="breed-card__header" (click)="toggle(b.id)">
+        <span class="breed-card__name">{{ b.name }}</span>
+        <span class="breed-card__toggle">{{ breedStates[b.id].expanded ? '▲' : '▼' }}</span>
+      </div>
+
+      @if (breedStates[b.id].expanded) {
+        <div class="breed-card__form" [formGroup]="breedStates[b.id].form">
+          <mat-form-field class="full-width">
+            <mat-label>About</mat-label>
+            <textarea matInput formControlName="about" rows="4"></textarea>
+          </mat-form-field>
+
+          <div class="standards-grid">
+            <mat-form-field>
+              <mat-label>Appearance</mat-label>
+              <input matInput formControlName="appearance" />
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Size</mat-label>
+              <input matInput formControlName="size" />
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Weight</mat-label>
+              <input matInput formControlName="weight" />
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Coat</mat-label>
+              <input matInput formControlName="coat" />
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Colors</mat-label>
+              <input matInput formControlName="colors" />
+            </mat-form-field>
+          </div>
+
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="save(b.id)"
+            [disabled]="breedStates[b.id].saving">
+            {{ breedStates[b.id].saving ? 'Saving...' : 'Save' }}
+          </button>
+        </div>
+      }
+    </div>
+  }
+</div>

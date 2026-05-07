@@ -1,4 +1,13 @@
 <div class="dog-list" *ngIf="breed()">
-  <h2>{{ 'breed.females' | translate }}</h2>
-  <p class="dog-list__empty">{{ 'breed.noDogsYet' | translate }}</p>
+  <app-section-header title="Females" />
+
+  <p class="dog-list__empty" *ngIf="profileItems().length === 0">No dogs listed yet.</p>
+
+  <div class="dog-list__cards" *ngIf="profileItems().length > 0">
+    <app-dog-profile-card
+      *ngFor="let item of profileItems(); let i = index"
+      [item]="item"
+      (click)="openModal(i)"
+    />
+  </div>
 </div>

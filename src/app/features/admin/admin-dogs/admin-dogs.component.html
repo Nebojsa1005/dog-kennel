@@ -1,0 +1,92 @@
+<div class="admin-page">
+  <div class="admin-page__header">
+    <h1>Dogs</h1>
+    <button mat-raised-button color="primary" (click)="openDialog()">Add Dog</button>
+  </div>
+
+  <div class="admin-filters" [formGroup]="filterForm">
+    <mat-form-field>
+      <mat-label>Breed</mat-label>
+      <mat-select formControlName="breed">
+        <mat-option value="">All</mat-option>
+        @for (b of breeds; track b.id) {
+          <mat-option [value]="b.id">{{ b.name }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Gender</mat-label>
+      <mat-select formControlName="gender">
+        <mat-option value="">All</mat-option>
+        <mat-option value="male">Male</mat-option>
+        <mat-option value="female">Female</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <table mat-table [dataSource]="filteredDogs$" class="mat-elevation-z2 full-width">
+    <ng-container matColumnDef="photo">
+      <th mat-header-cell *matHeaderCellDef>Photo</th>
+      <td mat-cell *matCellDef="let d">
+        @if (d.photoBase64) {
+          <img [src]="d.photoBase64" class="table-thumb" [alt]="d.name" />
+        } @else {
+          <span class="no-photo">—</span>
+        }
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Name</th>
+      <td mat-cell *matCellDef="let d">{{ d.name }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="breed">
+      <th mat-header-cell *matHeaderCellDef>Breed</th>
+      <td mat-cell *matCellDef="let d">{{ getBreedName(d.breedId) }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="gender">
+      <th mat-header-cell *matHeaderCellDef>Gender</th>
+      <td mat-cell *matCellDef="let d">{{ d.gender }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="dateOfBirth">
+      <th mat-header-cell *matHeaderCellDef>DOB</th>
+      <td mat-cell *matCellDef="let d">{{ d.dateOfBirth }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="color">
+      <th mat-header-cell *matHeaderCellDef>Color</th>
+      <td mat-cell *matCellDef="let d">{{ d.color }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="titles">
+      <th mat-header-cell *matHeaderCellDef>Titles</th>
+      <td mat-cell *matCellDef="let d">{{ d.titles }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef>Status</th>
+      <td mat-cell *matCellDef="let d">
+        <span class="status-badge status-badge--{{ d.status }}">{{ d.status }}</span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let d">
+        <button mat-icon-button (click)="openDialog(d)" title="Edit">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="deleteDog(d)" title="Delete">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
