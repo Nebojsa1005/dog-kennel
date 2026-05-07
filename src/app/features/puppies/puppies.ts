@@ -1,38 +1,76 @@
-import { Component, signal, computed } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
 import { NgFor, NgIf } from '@angular/common';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { MatDialog } from '@angular/material/dialog';
 import { KENNEL_CONFIG } from '../../core/config/kennel.config';
-import { DogImg } from '../../shared/components/dog-img/dog-img';
-import { Badge } from '../../shared/components/badge/badge';
 import { SectionHeader } from '../../shared/components/section-header/section-header';
+import { DogProfileCard } from '../../shared/components/dog-profile-card/dog-profile-card';
+import { PuppyService } from '../../core/services/puppy.service';
+import { Puppy } from '../../core/models/puppy.model';
+import { ProfileCardItem } from '../../shared/models/profile-card.model';
+import {
+  DogDetailModal,
+  DogDetailModalData,
+} from '../../shared/components/dog-detail-modal/dog-detail-modal.component';
+
+function puppyToProfileCard(puppy: Puppy): ProfileCardItem {
+  return {
+    name: puppy.name,
+    photoUrl: puppy.photoBase64,
+    color: puppy.color,
+    dateOfBirth: puppy.dateOfBirth,
+    status: puppy.status,
+    gender: puppy.gender,
+  };
+}
 
 @Component({
   selector: 'app-puppies',
   standalone: true,
-  imports: [RouterLink, TranslateModule, NgFor, DogImg, Badge, SectionHeader],
+  imports: [RouterLink, NgFor, NgIf, SectionHeader, DogProfileCard],
   templateUrl: './puppies.html',
   styleUrl: './puppies.scss',
 })
 export class Puppies {
+  private puppyService = inject(PuppyService);
+  private dialog = inject(MatDialog);
+
   breeds = KENNEL_CONFIG.breeds;
   activeBreed = signal<string | null>(null);
 
-  allPuppies = [
-    { id: 1, breed: 'bernese-mountain-dog', breedName: 'Bernese Mountain Dog', litter: 'A', born: '2025-03-01', availableFrom: '2025-05-01', status: 'available' as const },
-    { id: 2, breed: 'maltese', breedName: 'Maltese', litter: 'B', born: '2025-02-15', availableFrom: '2025-04-15', status: 'reserved' as const },
-    { id: 3, breed: 'bolonka-zwetna', breedName: 'Bolonka Zwetna', litter: 'C', born: '2025-04-01', availableFrom: '2025-06-01', status: 'available' as const },
-    { id: 4, breed: 'bernese-mountain-dog', breedName: 'Bernese Mountain Dog', litter: 'D', born: '2025-04-10', availableFrom: '2025-06-10', status: 'available' as const },
-  ];
+  private allPuppies = toSignal(this.puppyService.getAllPuppies(), { initialValue: [] });
 
-  filtered = computed(() => {
+  flatItems = computed<ProfileCardItem[]>(() => {
     const b = this.activeBreed();
-    return b ? this.allPuppies.filter(p => p.breed === b) : this.allPuppies;
+    const puppies = b
+      ? this.allPuppies().filter(p => p.breedId === b)
+      : this.allPuppies();
+    return puppies.map(puppyToProfileCard);
+  });
+
+  groupedSections = computed(() => {
+    const all = this.allPuppies();
+    return KENNEL_CONFIG.breeds
+      .map(breed => ({
+        breed,
+        items: all.filter(p => p.breedId === breed.id).map(puppyToProfileCard),
+      }))
+      .filter(g => g.items.length > 0);
   });
 
   constructor(private route: ActivatedRoute) {
     this.route.params.subscribe(params => {
       this.activeBreed.set(params['breed'] ?? null);
     });
+  }
+
+  getBreedName(breedId: string): string {
+    return KENNEL_CONFIG.breeds.find(b => b.id === breedId)?.name ?? breedId;
+  }
+
+  openModal(items: ProfileCardItem[], index: number): void {
+    const data: DogDetailModalData = { items, currentIndex: index };
+    this.dialog.open(DogDetailModal, { data, panelClass: 'profile-modal-panel' });
   }
 }

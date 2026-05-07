@@ -1,34 +1,57 @@
 <div class="puppies-page">
   <div class="puppies-page__header">
     <div class="container">
-      <app-section-header eyebrowKey="puppies.eyebrow" titleKey="puppies.title"></app-section-header>
+      <app-section-header eyebrowKey="puppies.eyebrow" titleKey="puppies.title" />
       <div class="filter-tabs">
         <a class="filter-tab" routerLink="/puppies" [class.filter-tab--active]="!activeBreed()">
           All
         </a>
-        <a class="filter-tab" *ngFor="let b of breeds"
+        <a
+          class="filter-tab"
+          *ngFor="let b of breeds"
           [routerLink]="['/puppies', b.id]"
-          [class.filter-tab--active]="activeBreed() === b.id">
+          [class.filter-tab--active]="activeBreed() === b.id"
+        >
           {{ b.name }}
         </a>
       </div>
     </div>
   </div>
 
-  <div class="container puppies-page__grid">
-    <article class="puppy-card" *ngFor="let p of filtered()">
-      <div class="puppy-card__media">
-        <app-dog-img [src]="null" [alt]="p.breedName" aspectRatio="4/3"></app-dog-img>
-        <div class="puppy-card__badge">
-          <app-badge [variant]="p.status" [labelKey]="'puppies.status.' + p.status"></app-badge>
+  <div class="container puppies-page__content">
+
+    <!-- Filtered by breed: flat list -->
+    <ng-container *ngIf="activeBreed()">
+      <app-section-header [title]="getBreedName(activeBreed()!) + ' Puppies'" />
+
+      <p class="puppies-page__empty" *ngIf="flatItems().length === 0">No puppies listed yet.</p>
+
+      <div class="puppies-page__list" *ngIf="flatItems().length > 0">
+        <app-dog-profile-card
+          *ngFor="let item of flatItems(); let i = index"
+          [item]="item"
+          (click)="openModal(flatItems(), i)"
+        />
+      </div>
+    </ng-container>
+
+    <!-- All breeds: grouped sections -->
+    <ng-container *ngIf="!activeBreed()">
+      <ng-container *ngIf="groupedSections().length === 0">
+        <p class="puppies-page__empty">No puppies listed yet.</p>
+      </ng-container>
+
+      <div class="puppies-page__section" *ngFor="let section of groupedSections()">
+        <app-section-header [title]="section.breed.name" />
+        <div class="puppies-page__list">
+          <app-dog-profile-card
+            *ngFor="let item of section.items; let i = index"
+            [item]="item"
+            (click)="openModal(section.items, i)"
+          />
         </div>
       </div>
-      <div class="puppy-card__body">
-        <h3 class="puppy-card__breed">{{ p.breedName }}</h3>
-        <p class="puppy-card__meta">{{ 'puppies.litter' | translate }} {{ p.litter }} · {{ 'puppies.born' | translate }} {{ p.born }}</p>
-        <p class="puppy-card__avail">{{ 'puppies.available' | translate }}: {{ p.availableFrom }}</p>
-        <a class="btn" routerLink="/contact">{{ 'puppies.cta' | translate }}</a>
-      </div>
-    </article>
+    </ng-container>
+
   </div>
 </div>

@@ -10,5 +10,10 @@
       <dd>{{ breed()!.fciGroup }}</dd>
     </div>
   </dl>
-  <p class="breed-about__desc">{{ breed()!.description }}</p>
+  <p class="breed-about__desc" *ngIf="breedContent()?.about; else staticDesc">
+    {{ breedContent()!.about }}
+  </p>
+  <ng-template #staticDesc>
+    <p class="breed-about__desc">{{ breed()!.description }}</p>
+  </ng-template>
 </div>

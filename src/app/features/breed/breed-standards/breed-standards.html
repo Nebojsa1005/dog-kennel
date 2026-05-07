@@ -1,19 +1,41 @@
 <div class="breed-standards" *ngIf="breed()">
   <h2>{{ 'breed.standards' | translate }}: {{ breed()!.name }}</h2>
-  <p class="placeholder-note">FCI breed standard content for {{ breed()!.name }} will be placed here. Source: FCI – {{ breed()!.fciGroup }}.</p>
 
-  <div class="standards-placeholder">
-    <div class="standards-placeholder__row">
-      <span>General Appearance</span><span class="placeholder-text">———</span>
+  <ng-container *ngIf="breedContent()?.standards as s; else placeholder">
+    <div class="standards-grid">
+      <div class="standards-row">
+        <span>General Appearance</span><span>{{ s.appearance || '———' }}</span>
+      </div>
+      <div class="standards-row">
+        <span>Size</span><span>{{ s.size || '———' }}</span>
+      </div>
+      <div class="standards-row">
+        <span>Weight</span><span>{{ s.weight || '———' }}</span>
+      </div>
+      <div class="standards-row">
+        <span>Coat</span><span>{{ s.coat || '———' }}</span>
+      </div>
+      <div class="standards-row">
+        <span>Colors</span><span>{{ s.colors || '———' }}</span>
+      </div>
     </div>
-    <div class="standards-placeholder__row">
-      <span>Size</span><span class="placeholder-text">———</span>
+  </ng-container>
+
+  <ng-template #placeholder>
+    <p class="placeholder-note">FCI breed standard content for {{ breed()!.name }} will be placed here. Source: FCI – {{ breed()!.fciGroup }}.</p>
+    <div class="standards-placeholder">
+      <div class="standards-placeholder__row">
+        <span>General Appearance</span><span class="placeholder-text">———</span>
+      </div>
+      <div class="standards-placeholder__row">
+        <span>Size</span><span class="placeholder-text">———</span>
+      </div>
+      <div class="standards-placeholder__row">
+        <span>Coat</span><span class="placeholder-text">———</span>
+      </div>
+      <div class="standards-placeholder__row">
+        <span>Temperament</span><span class="placeholder-text">———</span>
+      </div>
     </div>
-    <div class="standards-placeholder__row">
-      <span>Coat</span><span class="placeholder-text">———</span>
-    </div>
-    <div class="standards-placeholder__row">
-      <span>Temperament</span><span class="placeholder-text">———</span>
-    </div>
-  </div>
+  </ng-template>
 </div>

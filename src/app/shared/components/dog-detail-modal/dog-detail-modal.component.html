@@ -1,0 +1,45 @@
+<div class="dog-modal">
+  <button class="dog-modal__close" (click)="close()" aria-label="Close">&#x2715;</button>
+
+  <div class="dog-modal__photo">
+    <app-dog-img [src]="item.photoUrl" [alt]="item.name" aspectRatio="4/3" />
+  </div>
+
+  <div class="dog-modal__content">
+    <div class="dog-modal__header">
+      <h2 class="dog-modal__name">{{ item.name }}</h2>
+      <span class="status-chip status-chip--{{ item.status }}">
+        {{ item.status === 'available' ? 'Available' : item.status === 'reserved' ? 'Reserved' : 'Sold' }}
+      </span>
+    </div>
+
+    <div class="dog-modal__fields">
+      <div class="field" *ngIf="item.gender">
+        <span class="field__label">Gender</span>
+        <span class="field__value">{{ item.gender | titlecase }}</span>
+      </div>
+      <div class="field">
+        <span class="field__label">Color</span>
+        <span class="field__value">{{ item.color }}</span>
+      </div>
+      <div class="field">
+        <span class="field__label">Date of Birth</span>
+        <span class="field__value">{{ item.dateOfBirth | date: 'd.M.yyyy' }}</span>
+      </div>
+      <div class="field" *ngIf="item.titles && item.titles !== '—'">
+        <span class="field__label">Titles</span>
+        <span class="field__value">{{ item.titles }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="dog-modal__nav" *ngIf="items.length > 1">
+    <button class="nav-btn" (click)="prev()" [disabled]="!hasPrev" aria-label="Previous">
+      &#8592; Prev
+    </button>
+    <span class="nav-counter">{{ currentIndex() + 1 }} / {{ items.length }}</span>
+    <button class="nav-btn" (click)="next()" [disabled]="!hasNext" aria-label="Next">
+      Next &#8594;
+    </button>
+  </div>
+</div>

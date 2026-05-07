@@ -1,0 +1,89 @@
+<div class="admin-page">
+  <div class="admin-page__header">
+    <h1>Puppies</h1>
+    <button mat-raised-button color="primary" (click)="openDialog()">Add Puppy</button>
+  </div>
+
+  <div class="admin-filters" [formGroup]="filterForm">
+    <mat-form-field>
+      <mat-label>Breed</mat-label>
+      <mat-select formControlName="breed">
+        <mat-option value="">All</mat-option>
+        @for (b of breeds; track b.id) {
+          <mat-option [value]="b.id">{{ b.name }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Litter</mat-label>
+      <mat-select formControlName="litter">
+        <mat-option value="">All</mat-option>
+        @for (l of litters; track l.id) {
+          <mat-option [value]="l.id">{{ l.name }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <table mat-table [dataSource]="filteredPuppies$" class="mat-elevation-z2 full-width">
+    <ng-container matColumnDef="photo">
+      <th mat-header-cell *matHeaderCellDef>Photo</th>
+      <td mat-cell *matCellDef="let p">
+        @if (p.photoBase64) {
+          <img [src]="p.photoBase64" class="table-thumb" [alt]="p.name" />
+        } @else {
+          <span class="no-photo">—</span>
+        }
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Name</th>
+      <td mat-cell *matCellDef="let p">{{ p.name }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="breed">
+      <th mat-header-cell *matHeaderCellDef>Breed</th>
+      <td mat-cell *matCellDef="let p">{{ getBreedName(p.breedId) }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="litter">
+      <th mat-header-cell *matHeaderCellDef>Litter</th>
+      <td mat-cell *matCellDef="let p">{{ getLitterName(p.litterId) }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="gender">
+      <th mat-header-cell *matHeaderCellDef>Gender</th>
+      <td mat-cell *matCellDef="let p">{{ p.gender }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="dateOfBirth">
+      <th mat-header-cell *matHeaderCellDef>DOB</th>
+      <td mat-cell *matCellDef="let p">{{ p.dateOfBirth }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="color">
+      <th mat-header-cell *matHeaderCellDef>Color</th>
+      <td mat-cell *matCellDef="let p">{{ p.color }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef>Status</th>
+      <td mat-cell *matCellDef="let p">
+        <span class="status-badge status-badge--{{ p.status }}">{{ p.status }}</span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let p">
+        <button mat-icon-button (click)="openDialog(p)" title="Edit"><mat-icon>edit</mat-icon></button>
+        <button mat-icon-button color="warn" (click)="deletePuppy(p)" title="Delete"><mat-icon>delete</mat-icon></button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>

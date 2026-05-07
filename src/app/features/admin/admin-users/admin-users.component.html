@@ -1,0 +1,70 @@
+<div class="admin-page">
+  <h1>Admin Users</h1>
+
+  <table mat-table [dataSource]="admins$" class="mat-elevation-z2 full-width">
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef>Email</th>
+      <td mat-cell *matCellDef="let a">{{ a.email }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Name</th>
+      <td mat-cell *matCellDef="let a">{{ a.name }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="addedAt">
+      <th mat-header-cell *matHeaderCellDef>Added</th>
+      <td mat-cell *matCellDef="let a">{{ a.addedAt | date }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let a">
+        <button
+          mat-icon-button
+          color="warn"
+          (click)="removeAdmin(a)"
+          [disabled]="a.isCurrentUser"
+          [title]="a.isCurrentUser ? 'Cannot remove your own account' : 'Remove admin'">
+          <mat-icon>person_remove</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <div class="add-admin-section">
+    <h2>Add Admin</h2>
+    <p class="add-admin-note">
+      The user must have signed in at least once via <code>/login</code> before their UID exists in Firebase Auth.
+      Find the UID in <strong>Firebase Console → Authentication → Users</strong>.
+    </p>
+
+    <form [formGroup]="addForm" (ngSubmit)="addAdmin()" class="add-admin-form">
+      <mat-form-field>
+        <mat-label>UID</mat-label>
+        <input matInput formControlName="uid" placeholder="Firebase Auth UID" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" type="email" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Display Name</mat-label>
+        <input matInput formControlName="name" />
+      </mat-form-field>
+
+      @if (errorMsg) {
+        <p class="error-msg">{{ errorMsg }}</p>
+      }
+
+      <button mat-raised-button color="primary" type="submit" [disabled]="addForm.invalid || saving">
+        {{ saving ? 'Adding...' : 'Add Admin' }}
+      </button>
+    </form>
+  </div>
+</div>

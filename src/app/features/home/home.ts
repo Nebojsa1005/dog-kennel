@@ -1,13 +1,15 @@
-import { Component, OnInit, AfterViewInit, ElementRef, QueryList, ViewChildren } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ElementRef, QueryList, ViewChildren, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgFor } from '@angular/common';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { KENNEL_CONFIG } from '../../core/config/kennel.config';
 import { BreedCard } from '../../shared/components/breed-card/breed-card';
 import { DogImg } from '../../shared/components/dog-img/dog-img';
 import { Badge } from '../../shared/components/badge/badge';
 import { SectionHeader } from '../../shared/components/section-header/section-header';
+import { PuppyService } from '../../core/services/puppy.service';
 
 @Component({
   selector: 'app-home',
@@ -21,11 +23,8 @@ export class Home implements OnInit, AfterViewInit {
   breeds = KENNEL_CONFIG.breeds;
   contactForm: FormGroup;
 
-  puppies = [
-    { id: 1, breed: 'Bernese Mountain Dog', litter: 'A', born: '2025-03-01', availableFrom: '2025-05-01', status: 'available' as const },
-    { id: 2, breed: 'Maltese', litter: 'B', born: '2025-02-15', availableFrom: '2025-04-15', status: 'reserved' as const },
-    { id: 3, breed: 'Bolonka Zwetna', litter: 'C', born: '2025-04-01', availableFrom: '2025-06-01', status: 'available' as const },
-  ];
+  private puppyService = inject(PuppyService);
+  puppies = toSignal(this.puppyService.getAvailablePuppies(3), { initialValue: [] });
 
   stats = [
     { value: '12+', labelKey: 'about.stats.yearsLabel' },
