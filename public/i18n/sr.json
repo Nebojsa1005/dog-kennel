@@ -63,6 +63,10 @@
   "contact": {
     "eyebrow": "Stupite u kontakt",
     "title": "Kontaktirajte nas",
+    "submit": "Pošalji poruku",
+    "sending": "Slanje...",
+    "success": "Vaša poruka je poslata. Uskoro ćemo vam se javiti.",
+    "error": "Došlo je do greške. Pokušajte ponovo ili nas kontaktirajte direktno.",
     "details": {
       "location": "Lokacija",
       "email": "Mejl",

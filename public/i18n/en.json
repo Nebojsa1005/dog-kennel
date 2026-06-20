@@ -63,6 +63,10 @@
   "contact": {
     "eyebrow": "Get In Touch",
     "title": "Contact Us",
+    "submit": "Send Message",
+    "sending": "Sending...",
+    "success": "Your message has been sent. We'll get back to you soon.",
+    "error": "Something went wrong. Please try again or contact us directly.",
     "details": {
       "location": "Location",
       "email": "Email",

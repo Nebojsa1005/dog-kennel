@@ -23,31 +23,41 @@
       </ul>
     </div>
 
-    <form class="contact-form" [formGroup]="form" (ngSubmit)="submit()">
-      <div class="form-field">
-        <label class="form-label">{{ 'contact.form.name' | translate }}</label>
-        <input class="form-input" type="text" formControlName="name">
+    <div class="contact-form-wrapper">
+      <div class="feedback-box feedback-box--success" *ngIf="isSuccess()">
+        {{ 'contact.success' | translate }}
       </div>
-      <div class="form-field">
-        <label class="form-label">{{ 'contact.form.email' | translate }}</label>
-        <input class="form-input" type="email" formControlName="email">
+      <div class="feedback-box feedback-box--error" *ngIf="isError()">
+        {{ 'contact.error' | translate }}
       </div>
-      <div class="form-field">
-        <label class="form-label">{{ 'contact.form.interest' | translate }}</label>
-        <select class="form-input" formControlName="interest">
-          <option value="general">{{ 'contact.form.interestOptions.general' | translate }}</option>
-          <option value="bernese">{{ 'contact.form.interestOptions.bernese' | translate }}</option>
-          <option value="maltese">{{ 'contact.form.interestOptions.maltese' | translate }}</option>
-          <option value="bolonka">{{ 'contact.form.interestOptions.bolonka' | translate }}</option>
-        </select>
-      </div>
-      <div class="form-field">
-        <label class="form-label">{{ 'contact.form.message' | translate }}</label>
-        <textarea class="form-input form-input--textarea" formControlName="message" rows="6"></textarea>
-      </div>
-      <button type="submit" class="btn" [disabled]="form.invalid">
-        {{ 'contact.form.submit' | translate }}
-      </button>
-    </form>
+
+      <form class="contact-form" [formGroup]="form" (ngSubmit)="submit()">
+        <div class="form-field">
+          <label class="form-label">{{ 'contact.form.name' | translate }}</label>
+          <input class="form-input" type="text" formControlName="name">
+        </div>
+        <div class="form-field">
+          <label class="form-label">{{ 'contact.form.email' | translate }}</label>
+          <input class="form-input" type="email" formControlName="email">
+        </div>
+        <div class="form-field">
+          <label class="form-label">{{ 'contact.form.interest' | translate }}</label>
+          <select class="form-input" formControlName="interest">
+            <option value="general">{{ 'contact.form.interestOptions.general' | translate }}</option>
+            <option value="bernese">{{ 'contact.form.interestOptions.bernese' | translate }}</option>
+            <option value="maltese">{{ 'contact.form.interestOptions.maltese' | translate }}</option>
+            <option value="bolonka">{{ 'contact.form.interestOptions.bolonka' | translate }}</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label class="form-label">{{ 'contact.form.message' | translate }}</label>
+          <textarea class="form-input form-input--textarea" formControlName="message" rows="6"></textarea>
+        </div>
+        <button type="submit" class="btn" [disabled]="form.invalid || isLoading()" [class.btn--loading]="isLoading()">
+          <mat-spinner *ngIf="isLoading()" [diameter]="20"></mat-spinner>
+          {{ (isLoading() ? 'contact.sending' : 'contact.submit') | translate }}
+        </button>
+      </form>
+    </div>
   </div>
 </div>

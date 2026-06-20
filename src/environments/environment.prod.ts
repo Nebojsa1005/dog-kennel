@@ -1,5 +1,10 @@
 export const environment = {
-  production: false,
+  production: true,
+  emailjs: {
+    publicKey: 'Cc21gp9hoFJOJx1pb',
+    serviceId: 'service_dci316c',
+    templateId: 'template_12qp8lu',
+  },
   firebaseConfig: {
     apiKey: 'AIzaSyBptSz90131t-o3V-80Xf8JGF8JkWPs7bo',
     authDomain: 'dog-kennel-ca0e8.firebaseapp.com',

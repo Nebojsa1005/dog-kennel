@@ -1,19 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
+import { NgIf } from '@angular/common';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { KENNEL_CONFIG } from '../../core/config/kennel.config';
 import { SectionHeader } from '../../shared/components/section-header/section-header';
+import { EmailService } from '../../core/services/email.service';
 
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [ReactiveFormsModule, TranslateModule, SectionHeader],
+  imports: [ReactiveFormsModule, TranslateModule, SectionHeader, NgIf, MatProgressSpinnerModule],
   templateUrl: './contact.html',
   styleUrl: './contact.scss',
 })
 export class Contact {
+  private emailService = inject(EmailService);
+
   config = KENNEL_CONFIG;
   form: FormGroup;
+  isLoading = signal(false);
+  isSuccess = signal(false);
+  isError = signal(false);
 
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
@@ -24,10 +32,29 @@ export class Contact {
     });
   }
 
-  submit() {
-    if (this.form.valid) {
-      console.log('Contact form:', this.form.value);
+  async submit(): Promise<void> {
+    this.form.markAllAsTouched();
+    if (this.form.invalid) return;
+
+    this.isLoading.set(true);
+    this.isSuccess.set(false);
+    this.isError.set(false);
+
+    try {
+      const { name, email, interest, message } = this.form.value;
+      await this.emailService.sendContactForm({
+        from_name: name,
+        from_email: email,
+        interest,
+        message,
+        time: new Date().toString(),
+      });
       this.form.reset();
+      this.isSuccess.set(true);
+    } catch {
+      this.isError.set(true);
+    } finally {
+      this.isLoading.set(false);
     }
   }
 }
