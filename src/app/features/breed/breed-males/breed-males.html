@@ -1,13 +1,15 @@
-<div class="dog-list" *ngIf="breed()">
-  <app-section-header title="Males" />
+@if (breed()) {
+  <div class="dog-list">
+    <app-section-header title="Males" />
 
-  <p class="dog-list__empty" *ngIf="profileItems().length === 0">No dogs listed yet.</p>
-
-  <div class="dog-list__cards" *ngIf="profileItems().length > 0">
-    <app-dog-profile-card
-      *ngFor="let item of profileItems(); let i = index"
-      [item]="item"
-      (click)="openModal(i)"
-    />
+    @if (profileItems().length === 0) {
+      <p class="dog-list__empty">No dogs listed yet.</p>
+    } @else {
+      <div class="dog-list__cards">
+        @for (item of profileItems(); track $index; let i = $index) {
+          <app-dog-profile-card [item]="item" (click)="openModal(i)" />
+        }
+      </div>
+    }
   </div>
-</div>
+}

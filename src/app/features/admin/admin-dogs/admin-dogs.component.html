@@ -29,8 +29,8 @@
     <ng-container matColumnDef="photo">
       <th mat-header-cell *matHeaderCellDef>Photo</th>
       <td mat-cell *matCellDef="let d">
-        @if (d.photoBase64) {
-          <img [src]="d.photoBase64" class="table-thumb" [alt]="d.name" />
+        @if (d.photosBase64?.[0] || d.photoBase64) {
+          <img (click)="openDialog(d)" [src]="d.photosBase64?.[0]" class="table-thumb" [alt]="d.name" />
         } @else {
           <span class="no-photo">—</span>
         }

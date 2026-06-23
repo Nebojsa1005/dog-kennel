@@ -2,7 +2,22 @@
   <button class="dog-modal__close" (click)="close()" aria-label="Close">&#x2715;</button>
 
   <div class="dog-modal__photo">
-    <app-dog-img [src]="item.photoUrl" [alt]="item.name" aspectRatio="4/3" />
+    @if (item.photosBase64.length > 1) {
+      <swiper-container
+        #swiperEl
+        navigation="true"
+        pagination="true"
+        class="dog-swiper"
+      >
+        @for (photo of item.photosBase64; track $index) {
+          <swiper-slide>
+            <app-dog-img [src]="photo" [alt]="item.name" aspectRatio="4/3" />
+          </swiper-slide>
+        }
+      </swiper-container>
+    } @else {
+      <app-dog-img [src]="item.photosBase64.at(0) ?? null" [alt]="item.name" aspectRatio="4/3" />
+    }
   </div>
 
   <div class="dog-modal__content">

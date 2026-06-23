@@ -1,11 +1,11 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { NgIf } from '@angular/common';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { take } from 'rxjs/operators';
 import { Puppy } from '../../../core/models/puppy.model';
@@ -22,13 +22,13 @@ export interface PuppyDialogData {
   selector: 'app-admin-puppy-dialog',
   standalone: true,
   imports: [
-    NgIf,
     ReactiveFormsModule,
     MatDialogModule,
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
+    MatIconModule,
   ],
   template: `
     <h2 mat-dialog-title>{{ data.puppy ? 'Edit Puppy' : 'Add Puppy' }}</h2>
@@ -76,9 +76,37 @@ export interface PuppyDialogData {
         </mat-form-field>
 
         <div class="photo-upload">
-          <label>Photo</label>
-          <input type="file" accept="image/*" (change)="onFileSelected($event)" />
-          <img *ngIf="photoBase64" [src]="photoBase64" class="photo-preview" alt="preview" />
+          <label class="photo-upload__label">Photos</label>
+          <button type="button" mat-stroked-button (click)="fileInput.click()">
+            <mat-icon>add_photo_alternate</mat-icon>
+            Add Photos
+          </button>
+          <input
+            #fileInput
+            type="file"
+            accept="image/*"
+            multiple
+            hidden
+            (change)="onFileSelected($event)"
+          />
+          @if (photosBase64().length > 0) {
+            <div class="photo-grid">
+              @for (photo of photosBase64(); track $index; let i = $index) {
+                <div class="photo-thumb">
+                  <img [src]="photo" [alt]="'Photo ' + (i + 1)" />
+                  <button
+                    type="button"
+                    mat-icon-button
+                    class="photo-thumb__remove"
+                    (click)="removePhoto(i)"
+                    aria-label="Remove photo"
+                  >
+                    <mat-icon>close</mat-icon>
+                  </button>
+                </div>
+              }
+            </div>
+          }
         </div>
       </form>
     </mat-dialog-content>
@@ -99,8 +127,49 @@ export interface PuppyDialogData {
         padding-top: 0.5rem;
       }
       mat-form-field { width: 100%; }
-      .photo-upload { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.5rem; }
-      .photo-preview { max-width: 200px; max-height: 150px; object-fit: cover; border-radius: 4px; }
+      .photo-upload {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        margin-top: 0.5rem;
+      }
+      .photo-upload__label {
+        font-size: 12px;
+        color: rgba(0, 0, 0, 0.6);
+        font-weight: 500;
+      }
+      .photo-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+        gap: 8px;
+      }
+      .photo-thumb {
+        position: relative;
+      }
+      .photo-thumb img {
+        width: 100%;
+        aspect-ratio: 1;
+        object-fit: cover;
+        border-radius: 4px;
+        display: block;
+      }
+      .photo-thumb__remove {
+        position: absolute !important;
+        top: -10px !important;
+        right: -10px !important;
+        width: 24px !important;
+        height: 24px !important;
+        min-width: unset !important;
+        background: rgba(255, 255, 255, 0.95) !important;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.2) !important;
+        padding: 0 !important;
+      }
+      .photo-thumb__remove mat-icon {
+        font-size: 14px;
+        width: 14px;
+        height: 14px;
+        line-height: 14px;
+      }
     `,
   ],
 })
@@ -113,7 +182,7 @@ export class AdminPuppyDialog implements OnInit {
   private snackBar = inject(MatSnackBar);
 
   litters: Litter[] = [];
-  photoBase64 = '';
+  photosBase64 = signal<string[]>([]);
   saving = false;
 
   form = new FormGroup({
@@ -132,9 +201,14 @@ export class AdminPuppyDialog implements OnInit {
     });
 
     if (this.data.puppy) {
-      const { id: _id, createdAt: _ts, photoBase64: _photo, ...rest } = this.data.puppy;
+      const { id: _id, createdAt: _ts, photosBase64: _photos, photoBase64: _photo, ...rest } =
+        this.data.puppy;
       this.form.patchValue(rest);
-      this.photoBase64 = this.data.puppy.photoBase64 ?? '';
+      if (this.data.puppy.photosBase64?.length) {
+        this.photosBase64.set([...this.data.puppy.photosBase64]);
+      } else if (this.data.puppy.photoBase64) {
+        this.photosBase64.set([this.data.puppy.photoBase64]);
+      }
     }
   }
 
@@ -146,27 +220,44 @@ export class AdminPuppyDialog implements OnInit {
   async onFileSelected(event: Event): Promise<void> {
     const input = event.target as HTMLInputElement;
     if (!input.files?.length) return;
-    try {
-      const base64 = await this.imageService.compressAndConvert(input.files[0]);
-      this.photoBase64 = base64;
-      if (!this.imageService.validateSize(base64)) {
-        this.snackBar.open('Image is too large, please use a smaller photo', 'OK', { duration: 4000 });
+    const files = Array.from(input.files);
+
+    const results = await Promise.allSettled(files.map(f => this.imageService.compressAndConvert(f)));
+
+    for (const result of results) {
+      if (result.status === 'rejected') {
+        this.snackBar.open('Failed to process one or more images', 'OK', { duration: 3000 });
+      } else {
+        if (!this.imageService.validateSize(result.value)) {
+          this.snackBar.open('One or more images are too large', 'OK', { duration: 4000 });
+        }
+        this.photosBase64.update(photos => [...photos, result.value]);
       }
-    } catch {
-      this.snackBar.open('Failed to process image', 'OK', { duration: 3000 });
     }
+
+    input.value = '';
+  }
+
+  removePhoto(index: number): void {
+    this.photosBase64.update(photos => photos.filter((_, i) => i !== index));
   }
 
   save(): void {
     if (this.form.invalid) return;
     this.saving = true;
     const raw = this.form.getRawValue();
-    const puppyData = { ...raw, photoBase64: this.photoBase64, createdAt: this.data.puppy?.createdAt ?? Date.now() };
+    const puppyData = {
+      ...raw,
+      photosBase64: this.photosBase64(),
+      createdAt: this.data.puppy?.createdAt ?? Date.now(),
+    };
 
     const op = this.data.puppy?.id
       ? this.puppyService.updatePuppy(this.data.puppy.id, puppyData)
       : this.puppyService.addPuppy(puppyData);
 
-    op.then(() => this.dialogRef.close(true)).catch(() => { this.saving = false; });
+    op.then(() => this.dialogRef.close(true)).catch(() => {
+      this.saving = false;
+    });
   }
 }

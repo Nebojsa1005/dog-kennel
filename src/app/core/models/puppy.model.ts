@@ -6,7 +6,8 @@ export interface Puppy {
   gender: 'male' | 'female';
   dateOfBirth: string;
   color: string;
-  photoBase64: string;
+  photosBase64?: string[];
+  photoBase64?: string; // legacy — backward compat with existing RTDB records
   status: 'available' | 'reserved' | 'sold';
   createdAt: number;
 }

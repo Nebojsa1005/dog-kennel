@@ -1,6 +1,5 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NgFor, NgIf } from '@angular/common';
 import { switchMap } from 'rxjs/operators';
 import { EMPTY } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
@@ -15,10 +14,18 @@ import {
   DogDetailModalData,
 } from '../../../shared/components/dog-detail-modal/dog-detail-modal.component';
 
+function getPhotos(dog: Dog): string[] {
+  if (dog.photosBase64?.length) return dog.photosBase64;
+  if (dog.photoBase64) return [dog.photoBase64];
+  return [];
+}
+
 function dogToProfileCard(dog: Dog): ProfileCardItem {
+  const photos = getPhotos(dog);
   return {
     name: dog.name,
-    photoUrl: dog.photoBase64,
+    photoUrl: photos[0] ?? '',
+    photosBase64: photos,
     color: dog.color,
     dateOfBirth: dog.dateOfBirth,
     status: dog.status,
@@ -30,7 +37,7 @@ function dogToProfileCard(dog: Dog): ProfileCardItem {
 @Component({
   selector: 'app-breed-males',
   standalone: true,
-  imports: [NgFor, NgIf, DogProfileCard, SectionHeader],
+  imports: [DogProfileCard, SectionHeader],
   templateUrl: './breed-males.html',
   styleUrl: './breed-males.scss',
 })

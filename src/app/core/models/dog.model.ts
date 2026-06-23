@@ -6,7 +6,8 @@ export interface Dog {
   dateOfBirth: string;
   color: string;
   titles: string;
-  photoBase64: string;
+  photosBase64?: string[];
+  photoBase64?: string; // legacy — backward compat with existing RTDB records
   status: 'available' | 'reserved' | 'sold';
   createdAt: number;
 }

@@ -14,10 +14,18 @@ import {
   DogDetailModalData,
 } from '../../shared/components/dog-detail-modal/dog-detail-modal.component';
 
+function getPhotos(puppy: Puppy): string[] {
+  if (puppy.photosBase64?.length) return puppy.photosBase64;
+  if (puppy.photoBase64) return [puppy.photoBase64];
+  return [];
+}
+
 function puppyToProfileCard(puppy: Puppy): ProfileCardItem {
+  const photos = getPhotos(puppy);
   return {
     name: puppy.name,
-    photoUrl: puppy.photoBase64,
+    photoUrl: photos[0] ?? '',
+    photosBase64: photos,
     color: puppy.color,
     dateOfBirth: puppy.dateOfBirth,
     status: puppy.status,

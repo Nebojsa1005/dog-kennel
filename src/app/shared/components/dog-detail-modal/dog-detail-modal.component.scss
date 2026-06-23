@@ -31,10 +31,25 @@
 
   &__photo {
     width: 100%;
+    position: relative;
 
     app-dog-img {
       display: block;
       width: 100%;
+    }
+
+    .dog-swiper {
+      display: block;
+      width: 100%;
+
+      swiper-slide {
+        display: block;
+
+        app-dog-img {
+          display: block;
+          width: 100%;
+        }
+      }
     }
   }
 
