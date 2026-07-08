@@ -4,6 +4,7 @@
     "breeds": "Rase",
     "puppies": "Štenci",
     "archive": "Arhiva",
+    "guestbook": "Knjiga utisaka",
     "contact": "Kontakt",
     "breedLinks": {
       "about": "O rasi",
@@ -84,6 +85,25 @@
       },
       "message": "Vaša poruka",
       "submit": "Pošalji poruku"
+    }
+  },
+  "guestbook": {
+    "eyebrow": "Knjiga utisaka",
+    "title": "Knjiga utisaka",
+    "submit": "Objavi utisak",
+    "sending": "Slanje...",
+    "success": "Hvala! Vaš utisak je objavljen.",
+    "error": "Došlo je do greške. Pokušajte ponovo.",
+    "empty": "Još uvek nema utisaka. Budite prvi koji će se upisati!",
+    "filters": {
+      "all": "Sve"
+    },
+    "form": {
+      "name": "Vaše ime",
+      "message": "Vaš utisak",
+      "rating": "Vaša ocena",
+      "ratingRequired": "Molimo izaberite ocenu",
+      "image": "Slika (opciono)"
     }
   },
   "footer": {

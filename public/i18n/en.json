@@ -4,6 +4,7 @@
     "breeds": "Breeds",
     "puppies": "Puppies",
     "archive": "Archive",
+    "guestbook": "Guestbook",
     "contact": "Contact",
     "breedLinks": {
       "about": "About Breed",
@@ -84,6 +85,25 @@
       },
       "message": "Your Message",
       "submit": "Send Message"
+    }
+  },
+  "guestbook": {
+    "eyebrow": "Visitor Book",
+    "title": "Guestbook",
+    "submit": "Post Entry",
+    "sending": "Posting...",
+    "success": "Thank you! Your entry has been posted.",
+    "error": "Something went wrong. Please try again.",
+    "empty": "No entries yet. Be the first to sign our guestbook!",
+    "filters": {
+      "all": "All"
+    },
+    "form": {
+      "name": "Your Name",
+      "message": "Your Message",
+      "rating": "Your Rating",
+      "ratingRequired": "Please select a rating",
+      "image": "Photo (optional)"
     }
   },
   "footer": {

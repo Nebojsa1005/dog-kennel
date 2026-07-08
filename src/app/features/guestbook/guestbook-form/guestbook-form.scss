@@ -1,0 +1,133 @@
+.guestbook-form-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.guestbook-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-label {
+  font-size: 0.8125rem;
+  font-weight: 500;
+}
+
+.form-error {
+  font-size: 0.75rem;
+  color: #c62828;
+}
+
+.form-input {
+  width: 100%;
+  padding: 12px 16px;
+  background: #ffffff;
+  color: #1a1a1a;
+  border: 1.5px solid #1a1a1a;
+  border-radius: 2px;
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  outline: none;
+  appearance: none;
+  transition: border-color 200ms ease;
+
+  &:focus { border-color: var(--color-accent); }
+
+  &::placeholder { color: var(--color-text-muted); }
+
+  &--textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+}
+
+.image-preview {
+  position: relative;
+  width: 96px;
+  margin-top: 8px;
+
+  img {
+    width: 96px;
+    height: 96px;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+    border: 1.5px solid #1a1a1a;
+    display: block;
+  }
+
+  &__remove {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 1.5px solid #1a1a1a;
+    background: #ffffff;
+    color: #1a1a1a;
+    cursor: pointer;
+    line-height: 1;
+    font-size: 0.875rem;
+  }
+}
+
+.feedback-box {
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+
+  &--success {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+  }
+
+  &--error {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+  }
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 32px;
+  background: #ffffff;
+  color: #1a1a1a;
+  border: 1.5px solid #1a1a1a;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 200ms ease, color 200ms ease;
+  align-self: flex-start;
+
+  &:hover {
+    background: #1a1a1a;
+    color: #ffffff;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &--loading {
+    opacity: 0.7;
+    cursor: not-allowed;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+}

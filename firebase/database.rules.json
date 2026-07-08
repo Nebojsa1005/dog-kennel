@@ -19,6 +19,18 @@
     "puppies": {
       ".read": true,
       ".write": "auth != null && root.child('admins').child(auth.uid).exists()"
+    },
+    "guestbook": {
+      ".read": true,
+      "$entryId": {
+        ".write": "(!data.exists() && newData.exists() && newData.hasChildren(['name','message','rating','createdAt'])) || (auth != null && root.child('admins').child(auth.uid).exists())",
+        "name": { ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 100" },
+        "message": { ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 1000" },
+        "rating": { ".validate": "newData.isNumber() && newData.val() >= 1 && newData.val() <= 5" },
+        "imageBase64": { ".validate": "newData.isString()" },
+        "createdAt": { ".validate": "newData.isNumber()" },
+        "$other": { ".validate": false }
+      }
     }
   }
 }

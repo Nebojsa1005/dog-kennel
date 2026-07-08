@@ -1,0 +1,15 @@
+.guestbook-page {
+  &__header {
+    background: var(--color-bg-surface);
+    padding: var(--section-padding) 0 48px;
+    border-bottom: 1px solid #e0dbd4;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+    padding-top: 64px;
+    padding-bottom: var(--section-padding);
+  }
+}

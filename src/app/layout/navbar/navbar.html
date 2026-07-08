@@ -71,6 +71,12 @@
         </li>
 
         <li class="navbar__item">
+          <a class="navbar__link" routerLink="/guestbook" routerLinkActive="navbar__link--active">
+            {{ 'nav.guestbook' | translate }}
+          </a>
+        </li>
+
+        <li class="navbar__item">
           <a class="navbar__link" routerLink="/contact" routerLinkActive="navbar__link--active">
             {{ 'nav.contact' | translate }}
           </a>
@@ -102,6 +108,7 @@
       </li>
       <li><a routerLink="/puppies" (click)="toggleMobile()">{{ 'nav.puppies' | translate }}</a></li>
       <li><a routerLink="/archive" (click)="toggleMobile()">{{ 'nav.archive' | translate }}</a></li>
+      <li><a routerLink="/guestbook" (click)="toggleMobile()">{{ 'nav.guestbook' | translate }}</a></li>
       <li><a routerLink="/contact" (click)="toggleMobile()">{{ 'nav.contact' | translate }}</a></li>
     </ul>
   </div>

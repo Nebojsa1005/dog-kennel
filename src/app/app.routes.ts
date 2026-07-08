@@ -55,6 +55,10 @@ export const routes: Routes = [
     loadComponent: () => import('./features/contact/contact').then(m => m.Contact),
   },
   {
+    path: 'guestbook',
+    loadComponent: () => import('./features/guestbook/guestbook').then(m => m.Guestbook),
+  },
+  {
     path: 'login',
     loadComponent: () =>
       import('./features/login/login.component').then(m => m.LoginComponent),
@@ -101,6 +105,13 @@ export const routes: Routes = [
         path: 'users',
         loadComponent: () =>
           import('./features/admin/admin-users/admin-users.component').then(m => m.AdminUsers),
+      },
+      {
+        path: 'guestbook',
+        loadComponent: () =>
+          import('./features/admin/admin-guestbook/admin-guestbook.component').then(
+            m => m.AdminGuestbook
+          ),
       },
     ],
   },

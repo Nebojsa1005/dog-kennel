@@ -1,0 +1,38 @@
+<div class="guestbook-list">
+  <div class="guestbook-list__filters">
+    <button
+      type="button"
+      class="filter-chip"
+      [class.filter-chip--active]="selectedRatings.length === 0"
+      (click)="clearFilter()"
+    >{{ 'guestbook.filters.all' | translate }}</button>
+    @for (star of starOptions; track star) {
+      <button
+        type="button"
+        class="filter-chip"
+        [class.filter-chip--active]="selectedRatings.includes(star)"
+        (click)="toggleRating(star)"
+      >{{ star }}★</button>
+    }
+  </div>
+
+  <div class="guestbook-list__grid">
+    @for (entry of (filteredEntries$ | async); track entry.id) {
+      <article class="guestbook-card">
+        <div class="guestbook-card__media">
+          <app-dog-img [src]="entry.imageBase64" [alt]="entry.name" aspectRatio="4/3"></app-dog-img>
+        </div>
+        <div class="guestbook-card__body">
+          <div class="guestbook-card__header">
+            <h3 class="guestbook-card__name">{{ entry.name }}</h3>
+            <span class="guestbook-card__date">{{ entry.createdAt | date: 'mediumDate' }}</span>
+          </div>
+          <app-star-rating [rating]="entry.rating" [readonly]="true"></app-star-rating>
+          <p class="guestbook-card__message">{{ entry.message }}</p>
+        </div>
+      </article>
+    } @empty {
+      <p class="guestbook-list__empty">{{ 'guestbook.empty' | translate }}</p>
+    }
+  </div>
+</div>
