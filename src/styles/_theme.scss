@@ -1,7 +1,7 @@
 @use '@angular/material' as mat;
 
-$kennel-primary: mat.define-palette(mat.$brown-palette, 400, 200, 700);
-$kennel-accent: mat.define-palette(mat.$amber-palette, 300, 100, 600);
+$kennel-primary: mat.define-palette(mat.$green-palette, 600, 300, 800);
+$kennel-accent: mat.define-palette(mat.$light-green-palette, 500, 200, 700);
 $kennel-warn: mat.define-palette(mat.$red-palette);
 
 $kennel-theme: mat.define-light-theme((
