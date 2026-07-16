@@ -119,6 +119,12 @@
     </div>
 
     <form class="contact__form" [formGroup]="contactForm" (ngSubmit)="submitContact()" #fadeEl>
+      @if (isSuccess()) {
+        <div class="feedback-box feedback-box--success">{{ 'contact.success' | translate }}</div>
+      }
+      @if (isError()) {
+        <div class="feedback-box feedback-box--error">{{ 'contact.error' | translate }}</div>
+      }
       <div class="form-field">
         <label class="form-label">{{ 'contact.form.name' | translate }}</label>
         <input class="form-input" type="text" formControlName="name" [placeholder]="'contact.form.name' | translate">
@@ -140,8 +146,11 @@
         <label class="form-label">{{ 'contact.form.message' | translate }}</label>
         <textarea class="form-input form-input--textarea" formControlName="message" rows="5" [placeholder]="'contact.form.message' | translate"></textarea>
       </div>
-      <button type="submit" class="btn btn--submit" [disabled]="contactForm.invalid">
-        {{ 'contact.form.submit' | translate }}
+      <button type="submit" class="btn btn--submit" [disabled]="contactForm.invalid || isLoading()" [class.btn--loading]="isLoading()">
+        @if (isLoading()) {
+          <mat-spinner [diameter]="20"></mat-spinner>
+        }
+        {{ (isLoading() ? 'contact.sending' : 'contact.form.submit') | translate }}
       </button>
     </form>
 
