@@ -70,6 +70,14 @@ export interface DogDialogData {
         </mat-form-field>
 
         <mat-form-field>
+          <mat-label>Description</mat-label>
+          <textarea matInput formControlName="description" maxlength="200" rows="3"></textarea>
+        </mat-form-field>
+        <div class="char-counter" [class.char-counter--warn]="isDescriptionNearLimit()">
+          {{ descriptionLength() }} / 200
+        </div>
+
+        <mat-form-field>
           <mat-label>Status</mat-label>
           <mat-select formControlName="status">
             <mat-option value="available">Available</mat-option>
@@ -130,6 +138,15 @@ export interface DogDialogData {
         padding-top: 0.5rem;
       }
       mat-form-field { width: 100%; }
+      .char-counter {
+        font-size: 12px;
+        color: var(--color-text-muted);
+        text-align: right;
+        margin-top: -0.5rem;
+      }
+      .char-counter--warn {
+        color: var(--mat-sys-error);
+      }
       .photo-upload {
         display: flex;
         flex-direction: column;
@@ -197,8 +214,20 @@ export class AdminDogDialog implements OnInit {
     dateOfBirth: new FormControl<string>('', { nonNullable: true }),
     color: new FormControl<string>('', { nonNullable: true }),
     titles: new FormControl<string>('', { nonNullable: true }),
+    description: new FormControl<string>('', {
+      nonNullable: true,
+      validators: [Validators.maxLength(200)],
+    }),
     status: new FormControl<'available' | 'reserved' | 'sold'>('available', { nonNullable: true }),
   });
+
+  descriptionLength(): number {
+    return this.form.controls.description.value.length;
+  }
+
+  isDescriptionNearLimit(): boolean {
+    return this.descriptionLength() >= 180;
+  }
 
   ngOnInit(): void {
     if (this.data.dog) {

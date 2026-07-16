@@ -79,6 +79,13 @@
     row-gap: 8px;
   }
 
+  &__description {
+    margin-top: 16px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--color-text-muted);
+  }
+
   &__nav {
     display: flex;
     align-items: center;

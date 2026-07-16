@@ -8,10 +8,12 @@
       <span class="field__label">Name</span>
       <span class="field__value">{{ item.name }}</span>
     </div>
-    <div class="field" *ngIf="item.gender">
-      <span class="field__label">Gender</span>
-      <span class="field__value">{{ item.gender | titlecase }}</span>
-    </div>
+    @if (item.gender) {
+      <div class="field">
+        <span class="field__label">Gender</span>
+        <span class="field__value">{{ item.gender | titlecase }}</span>
+      </div>
+    }
     <div class="field">
       <span class="field__label">Color</span>
       <span class="field__value">{{ item.color }}</span>
@@ -20,10 +22,15 @@
       <span class="field__label">Date of Birth</span>
       <span class="field__value">{{ item.dateOfBirth | date: 'd.M.yyyy' }}</span>
     </div>
-    <div class="field" *ngIf="item.titles && item.titles !== '—'">
-      <span class="field__label">Titles</span>
-      <span class="field__value">{{ item.titles }}</span>
-    </div>
+    @if (item.titles && item.titles !== '—') {
+      <div class="field">
+        <span class="field__label">Titles</span>
+        <span class="field__value">{{ item.titles }}</span>
+      </div>
+    }
+    @if (item.description) {
+      <p class="dog-profile-card__description">{{ item.description }}</p>
+    }
   </div>
 
   <div class="dog-profile-card__status">

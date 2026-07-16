@@ -1,5 +1,5 @@
 import { CUSTOM_ELEMENTS_SCHEMA, Component, ElementRef, ViewChild, inject, signal } from '@angular/core';
-import { DatePipe, NgIf, TitleCasePipe } from '@angular/common';
+import { DatePipe, TitleCasePipe } from '@angular/common';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { DogImg } from '../dog-img/dog-img';
@@ -21,7 +21,7 @@ interface SwiperElement extends HTMLElement {
   selector: 'app-dog-detail-modal',
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  imports: [MatDialogModule, MatButtonModule, DatePipe, NgIf, TitleCasePipe, DogImg],
+  imports: [MatDialogModule, MatButtonModule, DatePipe, TitleCasePipe, DogImg],
   templateUrl: './dog-detail-modal.component.html',
   styleUrl: './dog-detail-modal.component.scss',
 })

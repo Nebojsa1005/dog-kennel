@@ -30,6 +30,7 @@ function puppyToProfileCard(puppy: Puppy): ProfileCardItem {
     dateOfBirth: puppy.dateOfBirth,
     status: puppy.status,
     gender: puppy.gender,
+    description: puppy.description,
   };
 }
 

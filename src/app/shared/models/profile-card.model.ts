@@ -7,4 +7,5 @@ export interface ProfileCardItem {
   status: 'available' | 'reserved' | 'sold';
   titles?: string;
   gender?: string;
+  description?: string;
 }

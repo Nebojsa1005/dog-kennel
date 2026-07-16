@@ -31,6 +31,7 @@ function dogToProfileCard(dog: Dog): ProfileCardItem {
     status: dog.status,
     titles: dog.titles,
     gender: dog.gender,
+    description: dog.description,
   };
 }
 
