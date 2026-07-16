@@ -84,7 +84,7 @@
           <h3 class="puppy-card__breed">{{ p.name }}</h3>
           <p class="puppy-card__meta">{{ p.breedId }} · {{ 'puppies.born' | translate }} {{ p.dateOfBirth }}</p>
           <p class="puppy-card__avail">{{ p.color }}</p>
-          <a class="btn" routerLink="/contact">{{ 'puppies.cta' | translate }}</a>
+          <button class="btn" (click)="onInquire(p)">{{ 'puppies.cta' | translate }}</button>
         </div>
       </article>
     </div>

@@ -54,6 +54,8 @@
     @if (item.description) {
       <p class="dog-modal__description">{{ item.description }}</p>
     }
+
+    <button class="btn" (click)="onInquire()">Inquire</button>
   </div>
 
   @if (items.length > 1) {

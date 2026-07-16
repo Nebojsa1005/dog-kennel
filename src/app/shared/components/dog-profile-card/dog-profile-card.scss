@@ -39,7 +39,30 @@
   &__status {
     flex-shrink: 0;
     display: flex;
+    flex-direction: column;
     align-items: center;
+    gap: 8px;
+  }
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 16px;
+  background: #ffffff;
+  color: #1a1a1a;
+  border: 1.5px solid #1a1a1a;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 200ms ease, color 200ms ease;
+
+  &:hover {
+    background: #1a1a1a;
+    color: #ffffff;
   }
 }
 

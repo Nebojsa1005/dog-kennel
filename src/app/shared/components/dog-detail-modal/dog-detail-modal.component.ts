@@ -1,9 +1,11 @@
 import { CUSTOM_ELEMENTS_SCHEMA, Component, ElementRef, ViewChild, inject, signal } from '@angular/core';
 import { DatePipe, TitleCasePipe } from '@angular/common';
+import { Router } from '@angular/router';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { DogImg } from '../dog-img/dog-img';
 import { ProfileCardItem } from '../../models/profile-card.model';
+import { InquiryState } from '../../models/inquiry-state.model';
 import { register } from 'swiper/element/bundle';
 
 register();
@@ -28,6 +30,7 @@ interface SwiperElement extends HTMLElement {
 export class DogDetailModal {
   private dialogRef = inject(MatDialogRef<DogDetailModal>);
   private data = inject<DogDetailModalData>(MAT_DIALOG_DATA);
+  private router = inject(Router);
 
   @ViewChild('swiperEl') swiperEl?: ElementRef<SwiperElement>;
 
@@ -62,6 +65,12 @@ export class DogDetailModal {
 
   close(): void {
     this.dialogRef.close();
+  }
+
+  onInquire(): void {
+    const { name, breedId } = this.item;
+    this.dialogRef.close();
+    this.router.navigate(['/contact'], { state: { name, breedId } satisfies InquiryState });
   }
 
   private resetSwiper(): void {

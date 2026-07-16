@@ -1,5 +1,6 @@
 export interface ProfileCardItem {
   name: string;
+  breedId: string;
   photoUrl: string;
   photosBase64: string[];
   color: string;

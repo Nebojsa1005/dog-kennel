@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit, ElementRef, QueryList, ViewChildren, inject } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgFor } from '@angular/common';
@@ -10,6 +10,8 @@ import { DogImg } from '../../shared/components/dog-img/dog-img';
 import { Badge } from '../../shared/components/badge/badge';
 import { SectionHeader } from '../../shared/components/section-header/section-header';
 import { PuppyService } from '../../core/services/puppy.service';
+import { Puppy } from '../../core/models/puppy.model';
+import { InquiryState } from '../../shared/models/inquiry-state.model';
 
 @Component({
   selector: 'app-home',
@@ -24,6 +26,7 @@ export class Home implements OnInit, AfterViewInit {
   contactForm: FormGroup;
 
   private puppyService = inject(PuppyService);
+  private router = inject(Router);
   puppies = toSignal(this.puppyService.getAvailablePuppies(3), { initialValue: [] });
 
   stats = [
@@ -61,6 +64,12 @@ export class Home implements OnInit, AfterViewInit {
     this.fadeElements.forEach(el => this.observer.observe(el.nativeElement));
     this.fadeElements.changes.subscribe((list: QueryList<ElementRef>) => {
       list.forEach(el => this.observer.observe(el.nativeElement));
+    });
+  }
+
+  onInquire(p: Puppy): void {
+    this.router.navigate(['/contact'], {
+      state: { name: p.name, breedId: p.breedId } satisfies InquiryState,
     });
   }
 

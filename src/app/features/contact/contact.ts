@@ -6,6 +6,13 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { KENNEL_CONFIG } from '../../core/config/kennel.config';
 import { SectionHeader } from '../../shared/components/section-header/section-header';
 import { EmailService } from '../../core/services/email.service';
+import { InquiryState } from '../../shared/models/inquiry-state.model';
+
+const BREED_ID_TO_INTEREST: Record<string, string> = {
+  'bernese-mountain-dog': 'bernese',
+  maltese: 'maltese',
+  'bolonka-zwetna': 'bolonka',
+};
 
 @Component({
   selector: 'app-contact',
@@ -30,6 +37,14 @@ export class Contact {
       interest: ['general'],
       message: ['', Validators.required],
     });
+
+    const state = history.state as Partial<InquiryState>;
+    if (state?.name && state?.breedId) {
+      this.form.patchValue({
+        interest: BREED_ID_TO_INTEREST[state.breedId] ?? 'general',
+        message: `Hi, I am interested in ${state.name}. Please send me price and availability information. Thank you!`,
+      });
+    }
   }
 
   async submit(): Promise<void> {

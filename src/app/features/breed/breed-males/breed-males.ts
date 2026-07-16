@@ -24,6 +24,7 @@ function dogToProfileCard(dog: Dog): ProfileCardItem {
   const photos = getPhotos(dog);
   return {
     name: dog.name,
+    breedId: dog.breedId,
     photoUrl: photos[0] ?? '',
     photosBase64: photos,
     color: dog.color,

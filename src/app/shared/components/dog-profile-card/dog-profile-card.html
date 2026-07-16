@@ -37,5 +37,6 @@
     <span class="status-chip status-chip--{{ item.status }}">
       {{ item.status === 'available' ? 'Available' : item.status === 'reserved' ? 'Reserved' : 'Sold' }}
     </span>
+    <button class="btn" (click)="onInquire($event)">Inquire</button>
   </div>
 </article>
