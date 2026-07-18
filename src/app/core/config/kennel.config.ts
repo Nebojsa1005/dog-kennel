@@ -1,12 +1,11 @@
 export const KENNEL_CONFIG = {
-  name: 'Happy Paws Kennel',
+  name: 'Puppy Power Kennel',
   location: 'Belgrade, Serbia',
-  email: 'info@happypawskennel.com',
-  phone: '+381 11 000 0000',
+  email: 'puppypowerkennel@gmail.com',
+  phone: '+381 64 2623337',
   social: {
     facebook: 'https://facebook.com/happypawskennel',
-    instagram: 'https://instagram.com/happypawskennel',
-    youtube: 'https://youtube.com/happypawskennel',
+    instagram: 'https://www.instagram.com/puppypowerkennel?igsh=anE2NTJ0ZHZmenA0',
   },
   breeds: [
     {

@@ -17,7 +17,7 @@
       </div>
     </div>
     <div class="hero__visual">
-      <app-dog-img [src]="null" alt="Kennel hero" aspectRatio="3/4"></app-dog-img>
+      <app-dog-img [src]="'assets/breeds/bernese-mountain-dog.jpg'" alt="Kennel hero" aspectRatio="3/4"></app-dog-img>
     </div>
   </div>
 
@@ -50,7 +50,8 @@
 <section class="section" id="about">
   <div class="container about__grid">
     <div class="about__media" #fadeEl>
-      <app-dog-img [src]="null" alt="About us" aspectRatio="3/4"></app-dog-img>
+      <img src="assets/logo/logo.png" alt="About us">
+      <!-- <app-dog-img [src]="'assets/logo/logo.png'" alt="About us"></app-dog-img> -->
     </div>
     <div class="about__text" #fadeEl>
       <app-section-header eyebrowKey="about.eyebrow" titleKey="about.title"></app-section-header>

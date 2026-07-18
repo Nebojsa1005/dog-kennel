@@ -5,7 +5,7 @@
 
   &__inner {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 24px 48px;
     align-items: start;
 
@@ -40,6 +40,19 @@
 
       &:hover {
         color: #fff;
+      }
+    }
+  }
+
+  .social__links {
+    svg {
+      width: 24px;
+      height: 24px;
+      fill: rgba(255,255,255,0.75);
+      transition: fill 150ms ease;
+
+      &:hover {
+        fill: #fff;
       }
     }
   }

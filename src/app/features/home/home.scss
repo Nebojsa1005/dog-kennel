@@ -59,6 +59,8 @@
   &__visual {
     max-width: 420px;
     margin-left: auto;
+    border-radius: 12px;
+    overflow: hidden;
 
     @media (max-width: 768px) {
       max-width: 100%;
@@ -133,7 +135,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 64px;
-  align-items: start;
+  align-items: center;
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
