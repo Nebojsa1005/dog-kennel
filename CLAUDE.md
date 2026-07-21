@@ -11,7 +11,7 @@ npm test           # run tests (vitest)
 npm run seed       # seed Firebase RTDB (requires scripts/serviceAccountKey.json)
 ```
 
-Install: always use `--legacy-peer-deps` (Angular 21 vs @angular/fire 20 peer-dep conflict).
+Install: plain `npm install` works. `@angular/fire` pinned to `21.0.0-rc.0` for Angular 21 peer-dep match.
 
 ## Architecture
 
