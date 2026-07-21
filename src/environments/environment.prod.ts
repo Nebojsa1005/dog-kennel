@@ -1,5 +1,6 @@
 export const environment = {
   production: true,
+  libreTranslateUrl: '/.netlify/functions/translate',
   emailjs: {
     publicKey: 'Cc21gp9hoFJOJx1pb',
     serviceId: 'service_dci316c',

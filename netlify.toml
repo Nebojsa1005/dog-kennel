@@ -1,6 +1,10 @@
 [build]
   command = "npm run build"
   publish = "dist/dog-kennel/browser"
+  functions = "netlify/functions"
+
+[context.production.environment]
+  LIBRE_TRANSLATE_URL = "https://your-libretranslate-instance.onrender.com"
 
 [[redirects]]
   from = "/*"
