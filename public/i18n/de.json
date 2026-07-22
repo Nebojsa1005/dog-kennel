@@ -1,0 +1,131 @@
+{
+  "nav": {
+    "aboutUs": "Über uns",
+    "breeds": "Rassen",
+    "puppies": "Welpen",
+    "archive": "Archiv",
+    "guestbook": "Gästebuch",
+    "contact": "Kontakt",
+    "breedLinks": {
+      "about": "Über die Rasse",
+      "standards": "Standards",
+      "males": "Rüden",
+      "females": "Hündinnen"
+    }
+  },
+  "hero": {
+    "eyebrow": "Registrierter FCI Kennel",
+    "title": "Willkommen bei",
+    "subtitle": "Leidenschaftliche Züchter von Berner Sennenhunden, Malteser und Bolonka Zwetna. Gesundheitlich getestete Welpen, aufgezogen in familiärer Umgebung.",
+    "cta": {
+      "breeds": "Unsere Rassen",
+      "puppies": "Verfügbare Welpen"
+    },
+    "breedsStrip": "Unsere Rassen"
+  },
+  "breeds": {
+    "title": "Unsere Rassen",
+    "eyebrow": "Lernen Sie unsere Hunde kennen",
+    "origin": "Herkunft",
+    "fciGroup": "FCI Gruppe",
+    "actions": {
+      "about": "Über die Rasse",
+      "standards": "Standards",
+      "males": "Rüden",
+      "females": "Hündinnen"
+    }
+  },
+  "about": {
+    "eyebrow": "Unsere Geschichte",
+    "title": "Über uns",
+    "paragraph1": "Familiärer Kennel mit über einem Jahrzehnt Erfahrung in der Zucht gesunder, gut sozialisierter Hunde. Temperament, Gesundheitsuntersuchungen und das Wohlergehen jedes Hundes stehen bei uns an erster Stelle.",
+    "paragraph2": "Alle unsere Zuchthunde durchlaufen rassespezifische Gesundheitsuntersuchungen. Die Welpen wachsen in unserem Zuhause auf, sind von Geburt an sozialisiert und ziehen erst aus, wenn sie bereit sind.",
+    "stats": {
+      "yearsLabel": "Jahre Erfahrung",
+      "litttersLabel": "Würfe",
+      "puppiesLabel": "Glückliche Welpen",
+      "countriesLabel": "Länder"
+    }
+  },
+  "puppies": {
+    "eyebrow": "Neuankömmlinge",
+    "title": "Verfügbare Welpen",
+    "status": {
+      "available": "Verfügbar",
+      "reserved": "Reserviert",
+      "sold": "Verkauft"
+    },
+    "litter": "Wurf",
+    "born": "Geboren",
+    "available": "Verfügbar ab",
+    "cta": "Anfrage",
+    "viewAll": "Alle Welpen"
+  },
+  "contact": {
+    "eyebrow": "Kontaktieren Sie uns",
+    "title": "Kontaktieren Sie uns",
+    "submit": "Nachricht senden",
+    "sending": "Wird gesendet...",
+    "success": "Ihre Nachricht wurde gesendet. Wir melden uns bald bei Ihnen.",
+    "error": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut oder kontaktieren Sie uns direkt.",
+    "details": {
+      "location": "Standort",
+      "email": "E-Mail",
+      "phone": "Telefon"
+    },
+    "form": {
+      "name": "Ihr Name",
+      "email": "Ihre E-Mail",
+      "interest": "Ich interessiere mich für",
+      "interestOptions": {
+        "general": "Allgemeine Anfrage",
+        "bernese": "Berner Sennenhund",
+        "maltese": "Malteser",
+        "bolonka": "Bolonka Zwetna"
+      },
+      "message": "Ihre Nachricht",
+      "submit": "Nachricht senden"
+    }
+  },
+  "guestbook": {
+    "eyebrow": "Gästebuch",
+    "title": "Gästebuch",
+    "submit": "Eintrag veröffentlichen",
+    "sending": "Wird gesendet...",
+    "success": "Danke! Ihr Eintrag wurde veröffentlicht.",
+    "error": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.",
+    "empty": "Noch keine Einträge. Seien Sie der Erste!",
+    "filters": {
+      "all": "Alle"
+    },
+    "form": {
+      "name": "Ihr Name",
+      "message": "Ihr Eintrag",
+      "rating": "Ihre Bewertung",
+      "ratingRequired": "Bitte wählen Sie eine Bewertung",
+      "image": "Bild (optional)"
+    }
+  },
+  "footer": {
+    "rights": "Alle Rechte vorbehalten.",
+    "links": {
+      "privacy": "Datenschutzerklärung",
+      "terms": "Nutzungsbedingungen"
+    }
+  },
+  "breed": {
+    "about": "Über die Rasse",
+    "standards": "Rassestandards",
+    "males": "Unsere Rüden",
+    "females": "Unsere Hündinnen",
+    "origin": "Herkunft",
+    "fciGroup": "FCI Gruppe",
+    "noDogsYet": "Noch keine Hunde vorhanden."
+  },
+  "archive": {
+    "eyebrow": "Frühere Würfe",
+    "title": "Archiv",
+    "allBreeds": "Alle Rassen",
+    "noRecords": "Noch keine Archiveinträge."
+  }
+}

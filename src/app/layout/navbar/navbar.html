@@ -85,6 +85,8 @@
         <button class="navbar__lang-btn" [class.navbar__lang-btn--active]="activeLang() === 'en'" (click)="switchLang('en')">EN</button>
         <span class="navbar__lang-sep">/</span>
         <button class="navbar__lang-btn" [class.navbar__lang-btn--active]="activeLang() === 'sr'" (click)="switchLang('sr')">SR</button>
+        <span class="navbar__lang-sep">/</span>
+        <button class="navbar__lang-btn" [class.navbar__lang-btn--active]="activeLang() === 'de'" (click)="switchLang('de')">DE</button>
       </div>
       <button class="navbar__hamburger" (click)="toggleMobile()" [attr.aria-expanded]="mobileOpen()" aria-label="Toggle menu">
         <span></span><span></span><span></span>
