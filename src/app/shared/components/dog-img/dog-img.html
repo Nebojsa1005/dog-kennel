@@ -1,6 +1,15 @@
 <div class="dog-img" [class]="'dog-img--' + aspectRatio.replace('/', '-')">
+  <button
+    *ngIf="!showPlaceholder && zoomable"
+    type="button"
+    class="dog-img__zoom-btn"
+    [attr.aria-label]="alt"
+    (click)="onZoom($event)"
+  >
+    <img [src]="src" [alt]="alt" (error)="onError()" class="dog-img__photo" />
+  </button>
   <img
-    *ngIf="!showPlaceholder"
+    *ngIf="!showPlaceholder && !zoomable"
     [src]="src"
     [alt]="alt"
     (error)="onError()"

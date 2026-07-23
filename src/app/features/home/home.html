@@ -51,15 +51,27 @@
   <div class="container about__grid">
     <div class="about__media" #fadeEl>
       @if (aboutImages().length > 0) {
+        @let aboutImageAlt = 'about.imageAlt' | translate;
         <swiper-container navigation="true" pagination="true" loop="true" class="about-swiper">
           @for (img of aboutImages(); track $index) {
             <swiper-slide>
-              <img [src]="img.url" [alt]="'about.imageAlt' | translate">
+              <img
+                [src]="img.url"
+                [alt]="aboutImageAlt"
+                class="about__zoomable-img"
+                (click)="onImageClick(img.url, aboutImageAlt)"
+              >
             </swiper-slide>
           }
         </swiper-container>
       } @else {
-        <img src="assets/logo/logo.png" [alt]="'about.imageAlt' | translate">
+        @let aboutImageAlt = 'about.imageAlt' | translate;
+        <img
+          src="assets/logo/logo.png"
+          [alt]="aboutImageAlt"
+          class="about__zoomable-img"
+          (click)="onImageClick('assets/logo/logo.png', aboutImageAlt)"
+        >
       }
     </div>
     <div class="about__text" #fadeEl>

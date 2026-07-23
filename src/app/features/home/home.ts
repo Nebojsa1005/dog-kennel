@@ -14,6 +14,7 @@ import { SectionHeader } from '../../shared/components/section-header/section-he
 import { PuppyService } from '../../core/services/puppy.service';
 import { EmailService } from '../../core/services/email.service';
 import { AboutService } from '../../core/services/about.service';
+import { ImageModalService } from '../../core/services/image-modal.service';
 import { Puppy } from '../../core/models/puppy.model';
 import { InquiryState } from '../../shared/models/inquiry-state.model';
 
@@ -46,6 +47,7 @@ export class Home implements OnInit, AfterViewInit {
   private router = inject(Router);
   private emailService = inject(EmailService);
   private aboutService = inject(AboutService);
+  private imageModalService = inject(ImageModalService);
   puppies = toSignal(this.puppyService.getAvailablePuppies(3), { initialValue: [] });
 
   isLoading = signal(false);
@@ -103,6 +105,10 @@ export class Home implements OnInit, AfterViewInit {
     this.fadeElements.changes.subscribe((list: QueryList<ElementRef>) => {
       list.forEach(el => this.observer.observe(el.nativeElement));
     });
+  }
+
+  onImageClick(url: string, alt: string): void {
+    this.imageModalService.open(url, alt);
   }
 
   onInquire(p: Puppy): void {
