@@ -21,7 +21,8 @@
       "breeds": "Unsere Rassen",
       "puppies": "Verfügbare Welpen"
     },
-    "breedsStrip": "Unsere Rassen"
+    "breedsStrip": "Unsere Rassen",
+    "imageAlt": "Zuchtbild"
   },
   "breeds": {
     "title": "Unsere Rassen",
@@ -38,6 +39,7 @@
   "about": {
     "eyebrow": "Unsere Geschichte",
     "title": "Über uns",
+    "imageAlt": "Über uns",
     "paragraph1": "Familiärer Kennel mit über einem Jahrzehnt Erfahrung in der Zucht gesunder, gut sozialisierter Hunde. Temperament, Gesundheitsuntersuchungen und das Wohlergehen jedes Hundes stehen bei uns an erster Stelle.",
     "paragraph2": "Alle unsere Zuchthunde durchlaufen rassespezifische Gesundheitsuntersuchungen. Die Welpen wachsen in unserem Zuhause auf, sind von Geburt an sozialisiert und ziehen erst aus, wenn sie bereit sind.",
     "stats": {

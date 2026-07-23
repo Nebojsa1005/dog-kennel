@@ -17,7 +17,7 @@
       </div>
     </div>
     <div class="hero__visual">
-      <app-dog-img [src]="'assets/breeds/bernese-mountain-dog.jpg'" alt="Kennel hero" aspectRatio="3/4"></app-dog-img>
+      <app-dog-img [src]="'assets/breeds/bernese-mountain-dog.jpg'" [alt]="'hero.imageAlt' | translate" aspectRatio="3/4"></app-dog-img>
     </div>
   </div>
 
@@ -50,15 +50,25 @@
 <section class="section" id="about">
   <div class="container about__grid">
     <div class="about__media" #fadeEl>
-      <img src="assets/logo/logo.png" alt="About us">
-      <!-- <app-dog-img [src]="'assets/logo/logo.png'" alt="About us"></app-dog-img> -->
+      @if (aboutImages().length > 0) {
+        <swiper-container navigation="true" pagination="true" loop="true" class="about-swiper">
+          @for (img of aboutImages(); track $index) {
+            <swiper-slide>
+              <img [src]="img.url" [alt]="'about.imageAlt' | translate">
+            </swiper-slide>
+          }
+        </swiper-container>
+      } @else {
+        <img src="assets/logo/logo.png" [alt]="'about.imageAlt' | translate">
+      }
     </div>
     <div class="about__text" #fadeEl>
       <app-section-header eyebrowKey="about.eyebrow" titleKey="about.title"></app-section-header>
-      <p class="about__para">{{ 'about.paragraph1' | translate }}</p>
-      <p class="about__para">{{ 'about.paragraph2' | translate }}</p>
+      @for (para of aboutParagraphs(); track $index) {
+        <p class="about__para">{{ para }}</p>
+      }
       <div class="stats-grid">
-        <div class="stat" *ngFor="let s of stats">
+        <div class="stat" *ngFor="let s of stats()">
           <span class="stat__value">{{ s.value }}</span>
           <span class="stat__label">{{ s.labelKey | translate }}</span>
         </div>

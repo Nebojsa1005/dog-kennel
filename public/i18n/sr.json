@@ -21,7 +21,8 @@
       "breeds": "Naše rase",
       "puppies": "Dostupni štenci"
     },
-    "breedsStrip": "Naše rase"
+    "breedsStrip": "Naše rase",
+    "imageAlt": "Uzgajivačnica"
   },
   "breeds": {
     "title": "Naše Rase",
@@ -38,6 +39,7 @@
   "about": {
     "eyebrow": "Naša priča",
     "title": "O nama",
+    "imageAlt": "O nama",
     "paragraph1": "Porodični kennel sa više od decenije iskustva u uzgoju zdravih, dobro socijalizovanih pasa. Prioritet nam je temperament, zdravstveni pregledi i dobrobit svakog psa.",
     "paragraph2": "Svi naši priplodni psi prolaze zdravstvene preglede specifične za rasu. Štenci rastu u našem domu, socijalizovani su od rođenja i odlaze samo kada su spremni.",
     "stats": {

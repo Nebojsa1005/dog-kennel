@@ -102,6 +102,11 @@ export const routes: Routes = [
           import('./features/admin/admin-breeds/admin-breeds.component').then(m => m.AdminBreeds),
       },
       {
+        path: 'about',
+        loadComponent: () =>
+          import('./features/admin/admin-about/admin-about.component').then(m => m.AdminAbout),
+      },
+      {
         path: 'users',
         loadComponent: () =>
           import('./features/admin/admin-users/admin-users.component').then(m => m.AdminUsers),

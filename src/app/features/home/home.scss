@@ -146,8 +146,21 @@
 .about__media {
   max-width: 440px;
 
+  img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
   @media (max-width: 768px) {
     max-width: 100%;
+  }
+}
+
+.about-swiper {
+  width: 100%;
+  aspect-ratio: 3/4;
+  border-radius: 12px;
+  overflow: hidden;
+
+  swiper-slide {
+    display: flex;
   }
 }
 

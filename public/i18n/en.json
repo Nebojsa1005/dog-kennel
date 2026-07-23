@@ -21,7 +21,8 @@
       "breeds": "Our Breeds",
       "puppies": "Available Puppies"
     },
-    "breedsStrip": "Our Breeds"
+    "breedsStrip": "Our Breeds",
+    "imageAlt": "Kennel hero"
   },
   "breeds": {
     "title": "Our Breeds",
@@ -38,6 +39,7 @@
   "about": {
     "eyebrow": "Our Story",
     "title": "About Us",
+    "imageAlt": "About us",
     "paragraph1": "We are a family-run kennel with over a decade of experience breeding healthy, well-socialized dogs. Our priority is temperament, health testing and the well-being of every dog in our care.",
     "paragraph2": "All our breeding dogs pass health screenings relevant to their breed. Puppies are raised in our home, socialised from birth and leave only when ready.",
     "stats": {
