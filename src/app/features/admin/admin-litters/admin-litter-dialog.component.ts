@@ -5,9 +5,16 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { Litter } from '../../../core/models/litter.model';
 import { LitterService } from '../../../core/services/litter.service';
 import { KENNEL_CONFIG } from '../../../core/config/kennel.config';
+import {
+  DdMmYyyyDateAdapter,
+  DD_MM_YYYY_FORMATS,
+} from '../../../shared/date-adapter/dd-mm-yyyy-date-adapter';
+import { isoStringToDate, dateToIsoString } from '../../../shared/date-adapter/date-string.util';
 
 export interface LitterDialogData {
   litter?: Litter;
@@ -23,6 +30,11 @@ export interface LitterDialogData {
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
+    MatDatepickerModule,
+  ],
+  providers: [
+    { provide: DateAdapter, useClass: DdMmYyyyDateAdapter },
+    { provide: MAT_DATE_FORMATS, useValue: DD_MM_YYYY_FORMATS },
   ],
   template: `
     <h2 mat-dialog-title>{{ data.litter ? 'Edit Litter' : 'Add Litter' }}</h2>
@@ -43,8 +55,15 @@ export interface LitterDialogData {
         </mat-form-field>
 
         <mat-form-field>
-          <mat-label>Date of Birth (YYYY-MM-DD)</mat-label>
-          <input matInput formControlName="dateOfBirth" placeholder="2024-11-01" />
+          <mat-label>Date of Birth</mat-label>
+          <input
+            matInput
+            [matDatepicker]="dobPicker"
+            formControlName="dateOfBirth"
+            readonly
+            (click)="dobPicker.open()"
+          />
+          <mat-datepicker #dobPicker></mat-datepicker>
         </mat-form-field>
 
         <mat-form-field>
@@ -98,7 +117,7 @@ export class AdminLitterDialog implements OnInit {
   form = new FormGroup({
     breedId: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
     name: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
-    dateOfBirth: new FormControl<string>('', { nonNullable: true }),
+    dateOfBirth: new FormControl<Date | null>(null),
     motherName: new FormControl<string>('', { nonNullable: true }),
     fatherName: new FormControl<string>('', { nonNullable: true }),
     status: new FormControl<'available' | 'reserved' | 'sold'>('available', { nonNullable: true }),
@@ -107,7 +126,7 @@ export class AdminLitterDialog implements OnInit {
   ngOnInit(): void {
     if (this.data.litter) {
       const { id: _id, createdAt: _ts, ...rest } = this.data.litter;
-      this.form.patchValue(rest);
+      this.form.patchValue({ ...rest, dateOfBirth: isoStringToDate(rest.dateOfBirth) });
     }
   }
 
@@ -115,7 +134,11 @@ export class AdminLitterDialog implements OnInit {
     if (this.form.invalid) return;
     this.saving = true;
     const raw = this.form.getRawValue();
-    const litterData = { ...raw, createdAt: this.data.litter?.createdAt ?? Date.now() };
+    const litterData = {
+      ...raw,
+      dateOfBirth: dateToIsoString(raw.dateOfBirth),
+      createdAt: this.data.litter?.createdAt ?? Date.now(),
+    };
 
     const op = this.data.litter?.id
       ? this.litterService.updateLitter(this.data.litter.id, litterData)

@@ -7,6 +7,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { take } from 'rxjs/operators';
 import { Puppy } from '../../../core/models/puppy.model';
 import { Litter } from '../../../core/models/litter.model';
@@ -14,6 +16,11 @@ import { PuppyService } from '../../../core/services/puppy.service';
 import { LitterService } from '../../../core/services/litter.service';
 import { ImageService } from '../../../core/services/image.service';
 import { TransformImagePipe } from '../../../shared/pipes/transform-image.pipe';
+import {
+  DdMmYyyyDateAdapter,
+  DD_MM_YYYY_FORMATS,
+} from '../../../shared/date-adapter/dd-mm-yyyy-date-adapter';
+import { isoStringToDate, dateToIsoString } from '../../../shared/date-adapter/date-string.util';
 
 export interface PuppyDialogData {
   puppy?: Puppy;
@@ -30,7 +37,12 @@ export interface PuppyDialogData {
     MatInputModule,
     MatSelectModule,
     MatIconModule,
+    MatDatepickerModule,
     TransformImagePipe,
+  ],
+  providers: [
+    { provide: DateAdapter, useClass: DdMmYyyyDateAdapter },
+    { provide: MAT_DATE_FORMATS, useValue: DD_MM_YYYY_FORMATS },
   ],
   template: `
     <h2 mat-dialog-title>{{ data.puppy ? 'Edit Puppy' : 'Add Puppy' }}</h2>
@@ -59,8 +71,15 @@ export interface PuppyDialogData {
         </mat-form-field>
 
         <mat-form-field>
-          <mat-label>Date of Birth (YYYY-MM-DD)</mat-label>
-          <input matInput formControlName="dateOfBirth" placeholder="2025-01-10" />
+          <mat-label>Date of Birth</mat-label>
+          <input
+            matInput
+            [matDatepicker]="dobPicker"
+            formControlName="dateOfBirth"
+            readonly
+            (click)="dobPicker.open()"
+          />
+          <mat-datepicker #dobPicker></mat-datepicker>
         </mat-form-field>
 
         <mat-form-field>
@@ -211,7 +230,7 @@ export class AdminPuppyDialog implements OnInit {
     breedId: new FormControl<string>('', { nonNullable: true }),
     name: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
     gender: new FormControl<'male' | 'female'>('male', { nonNullable: true }),
-    dateOfBirth: new FormControl<string>('', { nonNullable: true }),
+    dateOfBirth: new FormControl<Date | null>(null),
     color: new FormControl<string>('', { nonNullable: true }),
     description: new FormControl<string>('', {
       nonNullable: true,
@@ -236,7 +255,7 @@ export class AdminPuppyDialog implements OnInit {
     if (this.data.puppy) {
       const { id: _id, createdAt: _ts, photosBase64: _photos, photoBase64: _photo, ...rest } =
         this.data.puppy;
-      this.form.patchValue(rest);
+      this.form.patchValue({ ...rest, dateOfBirth: isoStringToDate(rest.dateOfBirth) });
       if (this.data.puppy.photosBase64?.length) {
         this.photosBase64.set([...this.data.puppy.photosBase64]);
       } else if (this.data.puppy.photoBase64) {
@@ -282,6 +301,7 @@ export class AdminPuppyDialog implements OnInit {
     const raw = this.form.getRawValue();
     const puppyData = {
       ...raw,
+      dateOfBirth: dateToIsoString(raw.dateOfBirth),
       photosBase64: this.photosBase64(),
       createdAt: this.data.puppy?.createdAt ?? Date.now(),
     };

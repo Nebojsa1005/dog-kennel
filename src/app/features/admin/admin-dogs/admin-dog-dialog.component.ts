@@ -7,11 +7,18 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { Dog } from '../../../core/models/dog.model';
 import { DogService } from '../../../core/services/dog.service';
 import { ImageService } from '../../../core/services/image.service';
 import { KENNEL_CONFIG } from '../../../core/config/kennel.config';
 import { TransformImagePipe } from '../../../shared/pipes/transform-image.pipe';
+import {
+  DdMmYyyyDateAdapter,
+  DD_MM_YYYY_FORMATS,
+} from '../../../shared/date-adapter/dd-mm-yyyy-date-adapter';
+import { isoStringToDate, dateToIsoString } from '../../../shared/date-adapter/date-string.util';
 
 export interface DogDialogData {
   dog?: Dog;
@@ -28,7 +35,12 @@ export interface DogDialogData {
     MatInputModule,
     MatSelectModule,
     MatIconModule,
+    MatDatepickerModule,
     TransformImagePipe,
+  ],
+  providers: [
+    { provide: DateAdapter, useClass: DdMmYyyyDateAdapter },
+    { provide: MAT_DATE_FORMATS, useValue: DD_MM_YYYY_FORMATS },
   ],
   template: `
     <h2 mat-dialog-title>{{ data.dog ? 'Edit Dog' : 'Add Dog' }}</h2>
@@ -57,8 +69,15 @@ export interface DogDialogData {
         </mat-form-field>
 
         <mat-form-field>
-          <mat-label>Date of Birth (YYYY-MM-DD)</mat-label>
-          <input matInput formControlName="dateOfBirth" placeholder="2023-01-15" />
+          <mat-label>Date of Birth</mat-label>
+          <input
+            matInput
+            [matDatepicker]="dobPicker"
+            formControlName="dateOfBirth"
+            readonly
+            (click)="dobPicker.open()"
+          />
+          <mat-datepicker #dobPicker></mat-datepicker>
         </mat-form-field>
 
         <mat-form-field>
@@ -215,7 +234,7 @@ export class AdminDogDialog implements OnInit {
       validators: [Validators.required],
     }),
     name: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
-    dateOfBirth: new FormControl<string>('', { nonNullable: true }),
+    dateOfBirth: new FormControl<Date | null>(null),
     color: new FormControl<string>('', { nonNullable: true }),
     titles: new FormControl<string>('', { nonNullable: true }),
     description: new FormControl<string>('', {
@@ -237,7 +256,7 @@ export class AdminDogDialog implements OnInit {
     if (this.data.dog) {
       const { id: _id, createdAt: _ts, photosBase64: _photos, photoBase64: _photo, ...rest } =
         this.data.dog;
-      this.form.patchValue(rest);
+      this.form.patchValue({ ...rest, dateOfBirth: isoStringToDate(rest.dateOfBirth) });
       if (this.data.dog.photosBase64?.length) {
         this.photosBase64.set([...this.data.dog.photosBase64]);
       } else if (this.data.dog.photoBase64) {
@@ -278,6 +297,7 @@ export class AdminDogDialog implements OnInit {
     const raw = this.form.getRawValue();
     const dogData = {
       ...raw,
+      dateOfBirth: dateToIsoString(raw.dateOfBirth),
       photosBase64: this.photosBase64(),
       createdAt: this.data.dog?.createdAt ?? Date.now(),
     };
