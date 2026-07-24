@@ -1,0 +1,19 @@
+<div class="image-modal">
+  <button type="button" class="image-modal__close" (click)="close()" aria-label="Close">&#x2715;</button>
+
+  @if (images.length > 1) {
+    <swiper-container
+      pagination="true"
+      [attr.initial-slide]="startIndex"
+      class="image-modal__swiper"
+    >
+      @for (img of images; track $index) {
+        <swiper-slide>
+          <img [src]="img | transformImage:1200" [alt]="altText" class="image-modal__img" />
+        </swiper-slide>
+      }
+    </swiper-container>
+  } @else {
+    <img [src]="images[0] | transformImage:1200" [alt]="altText" class="image-modal__img" />
+  }
+</div>

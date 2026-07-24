@@ -27,14 +27,15 @@
 
     <div class="form-field">
       <label class="form-label">{{ 'guestbook.form.image' | translate }}</label>
-      <input class="form-input" type="file" accept="image/*" (change)="onFileSelected($event)">
+      <input class="form-input" type="file" accept="image/*" [disabled]="uploadingImage()" (change)="onFileSelected($event)">
+      <mat-spinner *ngIf="uploadingImage()" [diameter]="20"></mat-spinner>
       <div class="image-preview" *ngIf="imageBase64()">
-        <img [src]="imageBase64()" alt="Preview">
+        <img [src]="imageBase64() | transformImage:300" alt="Preview">
         <button type="button" class="image-preview__remove" (click)="removeImage()">×</button>
       </div>
     </div>
 
-    <button type="submit" class="btn" [disabled]="form.invalid || rating() < 1 || isLoading()" [class.btn--loading]="isLoading()">
+    <button type="submit" class="btn" [disabled]="form.invalid || rating() < 1 || isLoading() || uploadingImage()" [class.btn--loading]="isLoading()">
       <mat-spinner *ngIf="isLoading()" [diameter]="20"></mat-spinner>
       {{ (isLoading() ? 'guestbook.sending' : 'guestbook.submit') | translate }}
     </button>

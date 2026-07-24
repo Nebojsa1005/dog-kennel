@@ -30,9 +30,9 @@
     <mat-card-header><mat-card-title>About Images</mat-card-title></mat-card-header>
     <mat-card-content>
       <div class="image-add">
-        <button type="button" mat-stroked-button (click)="fileInput.click()">
+        <button type="button" mat-stroked-button (click)="fileInput.click()" [disabled]="uploadingImages()">
           <mat-icon>add_photo_alternate</mat-icon>
-          Upload Images
+          {{ uploadingImages() ? 'Uploading...' : 'Upload Images' }}
         </button>
         <input
           #fileInput
@@ -40,6 +40,7 @@
           accept="image/*"
           multiple
           hidden
+          [disabled]="uploadingImages()"
           (change)="onFileSelected($event)"
         />
       </div>
@@ -49,7 +50,7 @@
           @for (img of images(); track img.url + $index) {
             <div class="image-row" cdkDrag>
               <mat-icon class="drag-handle" cdkDragHandle>drag_indicator</mat-icon>
-              <img [src]="img.url" alt="About image" class="image-thumb" />
+              <img [src]="img.url | transformImage:300" alt="About image" class="image-thumb" />
               <span class="image-url">{{ img.url.startsWith('data:') ? 'Uploaded image' : img.url }}</span>
               <button
                 type="button"

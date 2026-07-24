@@ -11,6 +11,7 @@ import { take } from 'rxjs/operators';
 import { AboutImage, AboutStats } from '../../../core/models/about.model';
 import { AboutService } from '../../../core/services/about.service';
 import { ImageService } from '../../../core/services/image.service';
+import { TransformImagePipe } from '../../../shared/pipes/transform-image.pipe';
 
 @Component({
   selector: 'app-admin-about',
@@ -24,6 +25,7 @@ import { ImageService } from '../../../core/services/image.service';
     MatInputModule,
     MatIconModule,
     DragDropModule,
+    TransformImagePipe,
   ],
   templateUrl: './admin-about.component.html',
   styleUrl: './admin-about.component.scss',
@@ -36,6 +38,7 @@ export class AdminAbout implements OnInit {
   savingText = signal(false);
   savingImages = signal(false);
   savingStats = signal(false);
+  uploadingImages = signal(false);
 
   images = signal<AboutImage[]>([]);
 
@@ -83,22 +86,21 @@ export class AdminAbout implements OnInit {
     if (!input.files?.length) return;
     const files = Array.from(input.files);
 
-    const results = await Promise.allSettled(
-      files.map(f => this.imageService.compressAndConvert(f))
-    );
+    this.uploadingImages.set(true);
+    try {
+      const results = await Promise.allSettled(files.map(f => this.imageService.uploadImage(f)));
 
-    for (const result of results) {
-      if (result.status === 'rejected') {
-        this.snackBar.open('Failed to process one or more images', 'OK', { duration: 3000 });
-      } else {
-        if (!this.imageService.validateSize(result.value)) {
-          this.snackBar.open('One or more images are too large', 'OK', { duration: 4000 });
+      for (const result of results) {
+        if (result.status === 'rejected') {
+          this.snackBar.open('Failed to upload one or more images', 'OK', { duration: 3000 });
+        } else {
+          this.images.update(images => [...images, { url: result.value }]);
         }
-        this.images.update(images => [...images, { url: result.value }]);
       }
+    } finally {
+      this.uploadingImages.set(false);
+      input.value = '';
     }
-
-    input.value = '';
   }
 
   removeImage(index: number): void {

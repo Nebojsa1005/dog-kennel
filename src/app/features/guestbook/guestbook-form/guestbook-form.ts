@@ -8,11 +8,19 @@ import { StarRating } from '../../../shared/components/star-rating/star-rating';
 import { GuestbookService } from '../../../core/services/guestbook.service';
 import { ImageService } from '../../../core/services/image.service';
 import { GuestbookEntry } from '../../../core/models/guestbook-entry.model';
+import { TransformImagePipe } from '../../../shared/pipes/transform-image.pipe';
 
 @Component({
   selector: 'app-guestbook-form',
   standalone: true,
-  imports: [ReactiveFormsModule, TranslateModule, NgIf, MatProgressSpinnerModule, StarRating],
+  imports: [
+    ReactiveFormsModule,
+    TranslateModule,
+    NgIf,
+    MatProgressSpinnerModule,
+    StarRating,
+    TransformImagePipe,
+  ],
   templateUrl: './guestbook-form.html',
   styleUrl: './guestbook-form.scss',
 })
@@ -23,6 +31,7 @@ export class GuestbookForm {
 
   form: FormGroup;
   imageBase64 = signal<string | null>(null);
+  uploadingImage = signal(false);
   rating = signal(0);
   ratingTouched = signal(false);
   isLoading = signal(false);
@@ -46,16 +55,14 @@ export class GuestbookForm {
     if (!input.files?.length) return;
     const file = input.files[0];
 
+    this.uploadingImage.set(true);
     try {
-      const base64 = await this.imageService.compressAndConvert(file);
-      if (!this.imageService.validateSize(base64)) {
-        this.snackBar.open('Image is too large', 'OK', { duration: 4000 });
-        return;
-      }
-      this.imageBase64.set(base64);
+      const url = await this.imageService.uploadImage(file);
+      this.imageBase64.set(url);
     } catch {
-      this.snackBar.open('Failed to process image', 'OK', { duration: 3000 });
+      this.snackBar.open('Failed to upload image', 'OK', { duration: 3000 });
     } finally {
+      this.uploadingImage.set(false);
       input.value = '';
     }
   }

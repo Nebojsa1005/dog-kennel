@@ -11,9 +11,11 @@ import { BreedCard } from '../../shared/components/breed-card/breed-card';
 import { DogImg } from '../../shared/components/dog-img/dog-img';
 import { Badge } from '../../shared/components/badge/badge';
 import { SectionHeader } from '../../shared/components/section-header/section-header';
+import { TransformImagePipe } from '../../shared/pipes/transform-image.pipe';
 import { PuppyService } from '../../core/services/puppy.service';
 import { EmailService } from '../../core/services/email.service';
 import { AboutService } from '../../core/services/about.service';
+import { ImageModalService } from '../../core/services/image-modal.service';
 import { Puppy } from '../../core/models/puppy.model';
 import { InquiryState } from '../../shared/models/inquiry-state.model';
 
@@ -33,6 +35,7 @@ register();
     Badge,
     SectionHeader,
     MatProgressSpinnerModule,
+    TransformImagePipe,
   ],
   templateUrl: './home.html',
   styleUrl: './home.scss',
@@ -46,6 +49,7 @@ export class Home implements OnInit, AfterViewInit {
   private router = inject(Router);
   private emailService = inject(EmailService);
   private aboutService = inject(AboutService);
+  private imageModalService = inject(ImageModalService);
   puppies = toSignal(this.puppyService.getAvailablePuppies(3), { initialValue: [] });
 
   isLoading = signal(false);
@@ -103,6 +107,14 @@ export class Home implements OnInit, AfterViewInit {
     this.fadeElements.changes.subscribe((list: QueryList<ElementRef>) => {
       list.forEach(el => this.observer.observe(el.nativeElement));
     });
+  }
+
+  onImageClick(index: number, alt: string): void {
+    this.imageModalService.open(this.aboutImages().map(img => img.url), index, alt);
+  }
+
+  onLogoImageClick(alt: string): void {
+    this.imageModalService.open(['assets/logo/logo.png'], 0, alt);
   }
 
   onInquire(p: Puppy): void {

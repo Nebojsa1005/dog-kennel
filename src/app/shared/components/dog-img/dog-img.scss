@@ -16,6 +16,16 @@
     display: block;
   }
 
+  &__zoom-btn {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: zoom-in;
+  }
+
   &__placeholder {
     width: 100%;
     height: 100%;
