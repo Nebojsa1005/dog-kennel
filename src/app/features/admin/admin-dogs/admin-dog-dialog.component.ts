@@ -11,6 +11,7 @@ import { Dog } from '../../../core/models/dog.model';
 import { DogService } from '../../../core/services/dog.service';
 import { ImageService } from '../../../core/services/image.service';
 import { KENNEL_CONFIG } from '../../../core/config/kennel.config';
+import { TransformImagePipe } from '../../../shared/pipes/transform-image.pipe';
 
 export interface DogDialogData {
   dog?: Dog;
@@ -27,6 +28,7 @@ export interface DogDialogData {
     MatInputModule,
     MatSelectModule,
     MatIconModule,
+    TransformImagePipe,
   ],
   template: `
     <h2 mat-dialog-title>{{ data.dog ? 'Edit Dog' : 'Add Dog' }}</h2>
@@ -88,9 +90,9 @@ export interface DogDialogData {
 
         <div class="photo-upload">
           <label class="photo-upload__label">Photos</label>
-          <button type="button" mat-stroked-button (click)="fileInput.click()">
+          <button type="button" mat-stroked-button (click)="fileInput.click()" [disabled]="uploadingPhotos()">
             <mat-icon>add_photo_alternate</mat-icon>
-            Add Photos
+            {{ uploadingPhotos() ? 'Uploading...' : 'Add Photos' }}
           </button>
           <input
             #fileInput
@@ -98,13 +100,14 @@ export interface DogDialogData {
             accept="image/*"
             multiple
             hidden
+            [disabled]="uploadingPhotos()"
             (change)="onFileSelected($event)"
           />
           @if (photosBase64().length > 0) {
             <div class="photo-grid">
               @for (photo of photosBase64(); track $index; let i = $index) {
                 <div class="photo-thumb">
-                  <img [src]="photo" [alt]="'Photo ' + (i + 1)" />
+                  <img [src]="photo | transformImage:300" [alt]="'Photo ' + (i + 1)" />
                   <button
                     type="button"
                     mat-icon-button
@@ -203,6 +206,7 @@ export class AdminDogDialog implements OnInit {
   breeds = KENNEL_CONFIG.breeds;
   photosBase64 = signal<string[]>([]);
   saving = false;
+  uploadingPhotos = signal(false);
 
   form = new FormGroup({
     breedId: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
@@ -247,20 +251,21 @@ export class AdminDogDialog implements OnInit {
     if (!input.files?.length) return;
     const files = Array.from(input.files);
 
-    const results = await Promise.allSettled(files.map(f => this.imageService.compressAndConvert(f)));
+    this.uploadingPhotos.set(true);
+    try {
+      const results = await Promise.allSettled(files.map(f => this.imageService.uploadImage(f)));
 
-    for (const result of results) {
-      if (result.status === 'rejected') {
-        this.snackBar.open('Failed to process one or more images', 'OK', { duration: 3000 });
-      } else {
-        if (!this.imageService.validateSize(result.value)) {
-          this.snackBar.open('One or more images are too large', 'OK', { duration: 4000 });
+      for (const result of results) {
+        if (result.status === 'rejected') {
+          this.snackBar.open('Failed to upload one or more photos', 'OK', { duration: 3000 });
+        } else {
+          this.photosBase64.update(photos => [...photos, result.value]);
         }
-        this.photosBase64.update(photos => [...photos, result.value]);
       }
+    } finally {
+      this.uploadingPhotos.set(false);
+      input.value = '';
     }
-
-    input.value = '';
   }
 
   removePhoto(index: number): void {

@@ -6,7 +6,7 @@ import { ImageModalComponent } from '../../shared/components/image-modal/image-m
 export class ImageModalService {
   private dialog = inject(Dialog);
 
-  open(imageUrl: string, altText = ''): DialogRef<void, ImageModalComponent> {
+  open(images: string[], startIndex = 0, altText = ''): DialogRef<void, ImageModalComponent> {
     const dialogRef = this.dialog.open<void, unknown, ImageModalComponent>(ImageModalComponent, {
       hasBackdrop: true,
       role: 'dialog',
@@ -14,7 +14,8 @@ export class ImageModalService {
       ariaLabel: 'Image preview',
     });
 
-    dialogRef.componentInstance!.imageUrl = imageUrl;
+    dialogRef.componentInstance!.images = images;
+    dialogRef.componentInstance!.startIndex = startIndex;
     dialogRef.componentInstance!.altText = altText;
 
     return dialogRef;

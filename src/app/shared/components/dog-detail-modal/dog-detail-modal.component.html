@@ -5,18 +5,24 @@
     @if (item.photosBase64.length > 1) {
       <swiper-container
         #swiperEl
-        navigation="true"
         pagination="true"
         class="dog-swiper"
       >
         @for (photo of item.photosBase64; track $index) {
           <swiper-slide>
-            <app-dog-img [src]="photo" [alt]="item.name" aspectRatio="4/3" />
+            <app-dog-img
+              [src]="photo"
+              [alt]="item.name"
+              aspectRatio="4/3"
+              [width]="1200"
+              [images]="item.photosBase64"
+              [index]="$index"
+            />
           </swiper-slide>
         }
       </swiper-container>
     } @else {
-      <app-dog-img [src]="item.photosBase64.at(0) ?? null" [alt]="item.name" aspectRatio="4/3" />
+      <app-dog-img [src]="item.photosBase64.at(0) ?? null" [alt]="item.name" aspectRatio="4/3" [width]="1200" />
     }
   </div>
 

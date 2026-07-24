@@ -1,70 +1,35 @@
 import { Injectable } from '@angular/core';
 
+const CLOUDINARY_CLOUD_NAME = 'unyck77m';
+const CLOUDINARY_UPLOAD_PRESET = 'ml_default';
+const CLOUDINARY_UPLOAD_URL = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`;
+
 @Injectable({ providedIn: 'root' })
 export class ImageService {
- compressAndConvert(file: File, maxWidth = 1200, maxSizeBytes = 500 * 1024): Promise<string> {
-  return new Promise((resolve, reject) => {
-    if (!file.type.startsWith('image/')) {
-      reject(new Error('File is not an image'));
-      return;
+  async uploadImage(file: File): Promise<string> {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+
+    const response = await fetch(CLOUDINARY_UPLOAD_URL, { method: 'POST', body: formData });
+    if (!response.ok) {
+      throw new Error('Image upload failed');
     }
 
-    // Already under 500KB — return as-is, no processing needed
-    if (file.size <= maxSizeBytes) {
-      const reader = new FileReader();
-      reader.onerror = () => reject(new Error('Failed to read file'));
-      reader.onload = e => resolve(e.target?.result as string);
-      reader.readAsDataURL(file);
-      return;
+    const data = await response.json();
+    if (!data.secure_url) {
+      throw new Error('Image upload failed');
     }
 
-    const reader = new FileReader();
-    reader.onerror = () => reject(new Error('Failed to read file'));
-    reader.onload = e => {
-      const img = new Image();
-      img.onerror = () => reject(new Error('Failed to load image'));
-      img.onload = () => {
-        let { width, height } = img;
-        if (width > maxWidth) {
-          height = Math.round((height * maxWidth) / width);
-          width = maxWidth;
-        }
-
-        const canvas = document.createElement('canvas');
-        canvas.width = width;
-        canvas.height = height;
-        const ctx = canvas.getContext('2d');
-        if (!ctx) { reject(new Error('Canvas not supported')); return; }
-        ctx.drawImage(img, 0, 0, width, height);
-
-        // Start at highest quality and step down until under 500KB
-        let quality = 0.95;
-        let dataUrl = canvas.toDataURL('image/jpeg', quality);
-
-        while (this.base64ToBytes(dataUrl) > maxSizeBytes && quality > 0.1) {
-          quality = Math.round((quality - 0.05) * 100) / 100;
-          dataUrl = canvas.toDataURL('image/jpeg', quality);
-        }
-
-        resolve(dataUrl);
-      };
-      img.src = e.target?.result as string;
-    };
-    reader.readAsDataURL(file);
-  });
-}
-
-private base64ToBytes(dataUrl: string): number {
-  const base64 = dataUrl.split(',')[1];
-  const padding = (base64.match(/=+$/) || [''])[0].length;
-  return (base64.length * 3) / 4 - padding;
-}
-
-  getFileSizeKb(base64: string): number {
-    return (base64.length * 0.75) / 1024;
+    return data.secure_url;
   }
 
-  validateSize(base64: string, maxKb = 500): boolean {
-    return this.getFileSizeKb(base64) <= maxKb;
+  transformImage(url: string, width = 1200, quality: string | number = 'auto'): string {
+    const marker = '/upload/';
+    const index = url.indexOf(marker);
+    if (index === -1) return url;
+
+    const insertAt = index + marker.length;
+    return `${url.slice(0, insertAt)}w_${width},q_${quality},f_auto/${url.slice(insertAt)}`;
   }
 }

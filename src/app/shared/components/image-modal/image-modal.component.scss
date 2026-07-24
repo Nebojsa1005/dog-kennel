@@ -3,7 +3,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 99vw;
+  max-width: 99vw;
   height: auto;
   max-height: 90vh;
   overflow: hidden;
@@ -11,7 +11,7 @@
   border-radius: var(--radius-md);
 
   @media (min-width: 768px) {
-    width: 50vw;
+    max-width: 50vw;
   }
 
   &__img {
@@ -21,11 +21,22 @@
     object-fit: contain;
   }
 
+  &__swiper {
+    width: 100%;
+    height: 90vh;
+
+    swiper-slide {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
   &__close {
     position: absolute;
     top: 0.5rem;
     right: 0.5rem;
-    z-index: 1;
+    z-index: 50;
     display: flex;
     align-items: center;
     justify-content: center;

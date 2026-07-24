@@ -13,6 +13,7 @@ import { PuppyService } from '../../../core/services/puppy.service';
 import { LitterService } from '../../../core/services/litter.service';
 import { KENNEL_CONFIG } from '../../../core/config/kennel.config';
 import { AdminPuppyDialog } from './admin-puppy-dialog.component';
+import { TransformImagePipe } from '../../../shared/pipes/transform-image.pipe';
 
 @Component({
   selector: 'app-admin-puppies',
@@ -24,6 +25,7 @@ import { AdminPuppyDialog } from './admin-puppy-dialog.component';
     MatIconModule,
     MatFormFieldModule,
     MatSelectModule,
+    TransformImagePipe,
   ],
   templateUrl: './admin-puppies.component.html',
   styleUrl: './admin-puppies.component.scss',

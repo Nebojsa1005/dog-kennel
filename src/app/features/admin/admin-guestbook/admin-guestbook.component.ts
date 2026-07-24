@@ -5,11 +5,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { GuestbookEntry } from '../../../core/models/guestbook-entry.model';
 import { GuestbookService } from '../../../core/services/guestbook.service';
 import { StarRating } from '../../../shared/components/star-rating/star-rating';
+import { TransformImagePipe } from '../../../shared/pipes/transform-image.pipe';
 
 @Component({
   selector: 'app-admin-guestbook',
   standalone: true,
-  imports: [MatTableModule, MatIconModule, StarRating, DatePipe],
+  imports: [MatTableModule, MatIconModule, StarRating, DatePipe, TransformImagePipe],
   templateUrl: './admin-guestbook.component.html',
   styleUrl: './admin-guestbook.component.scss',
 })

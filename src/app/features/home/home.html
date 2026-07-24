@@ -52,14 +52,14 @@
     <div class="about__media" #fadeEl>
       @if (aboutImages().length > 0) {
         @let aboutImageAlt = 'about.imageAlt' | translate;
-        <swiper-container navigation="true" pagination="true" loop="true" class="about-swiper">
+        <swiper-container pagination="true" loop="true" class="about-swiper">
           @for (img of aboutImages(); track $index) {
             <swiper-slide>
               <img
-                [src]="img.url"
+                [src]="img.url | transformImage:1200"
                 [alt]="aboutImageAlt"
                 class="about__zoomable-img"
-                (click)="onImageClick(img.url, aboutImageAlt)"
+                (click)="onImageClick($index, aboutImageAlt)"
               >
             </swiper-slide>
           }
@@ -70,7 +70,7 @@
           src="assets/logo/logo.png"
           [alt]="aboutImageAlt"
           class="about__zoomable-img"
-          (click)="onImageClick('assets/logo/logo.png', aboutImageAlt)"
+          (click)="onLogoImageClick(aboutImageAlt)"
         >
       }
     </div>
@@ -98,7 +98,7 @@
     <div class="puppies-grid">
       <article class="puppy-card" *ngFor="let p of puppies()" #fadeEl>
         <div class="puppy-card__media">
-          <app-dog-img [src]="p.photoBase64 || null" [alt]="p.name" aspectRatio="4/3"></app-dog-img>
+          <app-dog-img [src]="p.photosBase64?.[0] || p.photoBase64 || null" [alt]="p.name" aspectRatio="4/3" [images]="p.photosBase64 || null"></app-dog-img>
           <div class="puppy-card__badge">
             <app-badge [variant]="p.status" [labelKey]="'puppies.status.' + p.status"></app-badge>
           </div>

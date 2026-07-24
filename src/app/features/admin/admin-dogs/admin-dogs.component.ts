@@ -11,6 +11,7 @@ import { Dog } from '../../../core/models/dog.model';
 import { DogService } from '../../../core/services/dog.service';
 import { KENNEL_CONFIG } from '../../../core/config/kennel.config';
 import { AdminDogDialog } from './admin-dog-dialog.component';
+import { TransformImagePipe } from '../../../shared/pipes/transform-image.pipe';
 
 @Component({
   selector: 'app-admin-dogs',
@@ -22,6 +23,7 @@ import { AdminDogDialog } from './admin-dog-dialog.component';
     MatIconModule,
     MatFormFieldModule,
     MatSelectModule,
+    TransformImagePipe,
   ],
   templateUrl: './admin-dogs.component.html',
   styleUrl: './admin-dogs.component.scss',

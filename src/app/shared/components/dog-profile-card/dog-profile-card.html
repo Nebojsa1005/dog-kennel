@@ -1,6 +1,6 @@
 <article class="dog-profile-card">
   <div class="dog-profile-card__photo">
-    <app-dog-img [src]="item.photoUrl" [alt]="item.name" aspectRatio="1/1" />
+    <app-dog-img [src]="item.photoUrl" [alt]="item.name" aspectRatio="1/1" [images]="item.photosBase64" />
   </div>
 
   <div class="dog-profile-card__fields">

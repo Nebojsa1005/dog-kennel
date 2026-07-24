@@ -6,11 +6,11 @@
     [attr.aria-label]="alt"
     (click)="onZoom($event)"
   >
-    <img [src]="src" [alt]="alt" (error)="onError()" class="dog-img__photo" />
+    <img [src]="displaySrc" [alt]="alt" (error)="onError()" class="dog-img__photo" />
   </button>
   <img
     *ngIf="!showPlaceholder && !zoomable"
-    [src]="src"
+    [src]="displaySrc"
     [alt]="alt"
     (error)="onError()"
     class="dog-img__photo"

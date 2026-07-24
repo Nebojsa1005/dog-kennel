@@ -11,6 +11,7 @@ import { BreedCard } from '../../shared/components/breed-card/breed-card';
 import { DogImg } from '../../shared/components/dog-img/dog-img';
 import { Badge } from '../../shared/components/badge/badge';
 import { SectionHeader } from '../../shared/components/section-header/section-header';
+import { TransformImagePipe } from '../../shared/pipes/transform-image.pipe';
 import { PuppyService } from '../../core/services/puppy.service';
 import { EmailService } from '../../core/services/email.service';
 import { AboutService } from '../../core/services/about.service';
@@ -34,6 +35,7 @@ register();
     Badge,
     SectionHeader,
     MatProgressSpinnerModule,
+    TransformImagePipe,
   ],
   templateUrl: './home.html',
   styleUrl: './home.scss',
@@ -107,8 +109,12 @@ export class Home implements OnInit, AfterViewInit {
     });
   }
 
-  onImageClick(url: string, alt: string): void {
-    this.imageModalService.open(url, alt);
+  onImageClick(index: number, alt: string): void {
+    this.imageModalService.open(this.aboutImages().map(img => img.url), index, alt);
+  }
+
+  onLogoImageClick(alt: string): void {
+    this.imageModalService.open(['assets/logo/logo.png'], 0, alt);
   }
 
   onInquire(p: Puppy): void {
